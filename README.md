@@ -1,4 +1,4 @@
-# node.js e-Commerce with MVC
+# node.js e-Commerce with MVC pattern
 
 _node.js, JS, mySQL, MVC pattern, Backend_
 
