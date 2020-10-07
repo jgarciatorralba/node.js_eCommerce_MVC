@@ -8,6 +8,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Import dependency 'express'
 import express from "express";
+// Import dependency 'mysql'
+import mysql from "mysql";
 
 const app = express();
 
