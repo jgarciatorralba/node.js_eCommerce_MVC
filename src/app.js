@@ -9,9 +9,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Import dependency 'express'
 import express from "express";
 
-// console.log(__dirname);
-// console.log(path.join(__dirname, "views", "public"));
-
 const app = express();
 
 app.get("/", (req, res) => {
