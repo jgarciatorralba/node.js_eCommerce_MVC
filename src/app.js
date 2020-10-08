@@ -75,16 +75,27 @@ function createDbFromFile(path) {
 
 const app = express();
 
-// Route examples
-app.get("/", (req, res) => {
-  res.sendFile("index.html", {
-    root: path.join(__dirname, "views", "public"),
-  });
-});
+// Routes
+import {
+  router as router_public
+} from "./routes/public.js";
+app.use("/", router_public);
 
-app.get("/about", (req, res) => {
-  res.send("My business is so cool!");
-});
+import {
+  router as router_dashboard
+} from "./routes/dashboard.js";
+app.use("/dashboard", router_dashboard);
+
+// Route examples
+// app.get("/", (req, res) => {
+//   res.sendFile("index.html", {
+//     root: path.join(__dirname, "views", "public"),
+//   });
+// });
+
+// app.get("/about", (req, res) => {
+//   res.send("My business is so cool!");
+// });
 
 app.listen(APP_PORT, () => {
   console.log(`Server started on port ${APP_PORT}...`);
