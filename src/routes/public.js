@@ -1,10 +1,13 @@
+// Import native 'node.js' modules
+import path from "path";
+
 // Import dependency 'express'
 import express from "express";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send("Welcome to the homepage");
+  res.render("./public/homepage.ejs");
 })
 
 router.get("/login", (req, res) => {
