@@ -80,6 +80,10 @@ import {
   router as router_public
 } from "./routes/public.js";
 app.use("/", router_public);
+app.use("/login", router_public);
+app.use("/register", router_public);
+app.use("/reset", router_public);
+app.use("/profile", router_public);
 
 import {
   router as router_dashboard
