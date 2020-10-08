@@ -20,7 +20,8 @@
     "express-mysql-session": "^2.1.4",
     "helmet": "^4.1.1",
     "mysql": "^2.18.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "pug": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
