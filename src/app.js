@@ -14,6 +14,7 @@ const __dirname = dirname(fileURLToPath(
 
 // Import dependency 'express'
 import express from "express";
+
 // Import dependency 'mysql'
 import mysql from "mysql";
 
@@ -40,6 +41,7 @@ db.connect((err) => {
   console.log("MySql connected...");
   // Read 'demo_db.sql' file
   let filePath = path.resolve(__dirname, "seed", "demo_db.sql");
+  // Create database from read file
   createDbFromFile(filePath);
 });
 
@@ -75,7 +77,15 @@ function createDbFromFile(path) {
 
 const app = express();
 
-// Routes
+// EJS
+
+// Import VIEWS path and set it to folder 'views'
+import {
+  VIEWS
+} from "./config/app-config.js";
+app.set('views', VIEWS);
+
+// Routes for views in 'views/public'
 import {
   router as router_public
 } from "./routes/public.js";
@@ -85,21 +95,11 @@ app.use("/register", router_public);
 app.use("/reset", router_public);
 app.use("/profile", router_public);
 
+// Routes for views in 'views/dashboard'
 import {
   router as router_dashboard
 } from "./routes/dashboard.js";
 app.use("/dashboard", router_dashboard);
-
-// Route examples
-// app.get("/", (req, res) => {
-//   res.sendFile("index.html", {
-//     root: path.join(__dirname, "views", "public"),
-//   });
-// });
-
-// app.get("/about", (req, res) => {
-//   res.send("My business is so cool!");
-// });
 
 app.listen(APP_PORT, () => {
   console.log(`Server started on port ${APP_PORT}...`);
