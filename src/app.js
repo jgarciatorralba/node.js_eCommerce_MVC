@@ -17,6 +17,11 @@ import express from "express";
 // Import dependency 'mysql'
 import mysql from "mysql";
 
+// Import own files
+import {
+  APP_PORT
+} from "./config/app-config.js";
+
 // Create connection
 const db = mysql.createConnection({
   host: "localhost",
@@ -61,7 +66,7 @@ function createDbFromFile(path) {
     })
     Promise.all(promises).then((results) => {
       results.forEach(result => {
-        console.log(result);
+        // console.log(result);
       })
       console.log("Database created successfully!")
     });
@@ -81,6 +86,6 @@ app.get("/about", (req, res) => {
   res.send("My business is so cool!");
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000...");
+app.listen(APP_PORT, () => {
+  console.log(`Server started on port ${APP_PORT}...`);
 });
