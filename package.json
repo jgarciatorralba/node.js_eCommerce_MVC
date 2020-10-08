@@ -15,6 +15,7 @@
     "bootstrap": "^4.5.2",
     "csurf": "^1.11.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.4",
     "helmet": "^4.1.1",
