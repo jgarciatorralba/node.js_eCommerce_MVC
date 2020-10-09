@@ -1,3 +1,7 @@
+/**
+ * Controller to handle all requests from the public-facing views
+ */
+
 // Import native 'node.js' modules
 import path from "path";
 
