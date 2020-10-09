@@ -1,1 +1,10 @@
 <h1>Homepage</h1>
+
+<div>
+
+  <% data.forEach(item => { %>
+    <p><%- item.title %></p>
+    <p><%- item.description %></p>
+  <% }) %>
+
+</div>
