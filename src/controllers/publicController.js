@@ -31,7 +31,7 @@ export function getProduct(req, res){
   Product.getById(req.con, req.params.id, (err, product) => {
     res.render(
       path.resolve(VIEWS, "public", "product-details"), {
-        title: "Test",
+        title: "Product",
         product: product
       });
   })
