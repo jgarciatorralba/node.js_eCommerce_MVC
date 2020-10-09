@@ -7,3 +7,7 @@
 export function get(con, callback){
   con.query("SELECT * FROM products", callback)
 }
+
+export function getById(con, id, callback){
+  con.query("SELECT * FROM products WHERE id = ?", [id], callback)
+}
