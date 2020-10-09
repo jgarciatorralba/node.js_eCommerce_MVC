@@ -7,10 +7,18 @@ import expressLayouts from "express-ejs-layouts";
 
 // Import constants from own file 'app-config.js'
 import {
-  APP_PORT, VIEWS
+  APP_PORT,
+  VIEWS,
+  con
 } from "./src/config/app-config.js";
 
 const app = express();
+
+// Connecting route to db
+app.use(function(req, res, next) {
+  req.con = con
+  next()
+});
 
 // EJS
 
