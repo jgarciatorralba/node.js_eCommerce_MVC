@@ -6,21 +6,11 @@ import express from "express";
 
 const router = express.Router();
 
-// Import VIEWS path
-import {
-  VIEWS
-} from "./../config/app-config.js";
-
 // Import controller methods
-import {
-  index
-} from "./../controllers/publicController.js";
+import * as publicController from "./../controllers/publicController.js";
 
-// router.get("/", (req, res) => {
-//   res.render(path.resolve(VIEWS, "public", "homepage"), { title: "Homepage" });
-// })
-
-router.get("/", index);
+// Handle requests
+router.get("/", publicController.index);
 
 router.get("/product/:id", (req, res) => {
   const productId = req.params.id;
