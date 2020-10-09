@@ -5,73 +5,11 @@ import fs from "fs";
 // Import dependencies
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
-import mysql from "mysql";
 
-// Import own file 'app-config.js'
+// Import constants from own file 'app-config.js'
 import {
-  APP_PORT,
-  DB_PORT,
-  DB_HOST,
-  DB_USER,
-  DB_PASSWORD
+  APP_PORT
 } from "./config/app-config.js";
-
-// Alternative to '__dirname' when using ES6 modules (import)
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Create connection
-const db = mysql.createConnection({
-  host: DB_HOST,
-  port: DB_PORT,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  // database: "eCommerce",
-});
-
-// Connect
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  // On connection, then do...
-  console.log("MySql connected...");
-  // Read 'demo_db.sql' file
-  let filePath = path.resolve(__dirname, "seed", "demo_db.sql");
-  // Create database from read file
-  createDbFromFile(filePath);
-});
-
-// Helper function to create and populate db
-function createDbFromFile(path) {
-  fs.readFile(path, 'utf8', (err, data) => {
-    if (err) throw err;
-    let promises = [];
-    let sqlQueries = data.split(";");
-    sqlQueries.forEach(sqlQuery => {
-      sqlQuery = sqlQuery.trim();
-      sqlQuery = sqlQuery.replace(/(\r\n|\n|\r)/gm, "");
-      if (sqlQuery.startsWith("--") || sqlQuery == "") {
-        return;
-      } else {
-        let promise = new Promise((resolve, reject) => {
-          db.query(sqlQuery, (err, res) => {
-            if (err) throw err;
-            resolve(res);
-          })
-        });
-        promises.push(promise);
-      }
-    })
-    Promise.all(promises).then((results) => {
-      results.forEach(result => {
-        // console.log(result);
-      })
-      console.log("Database created successfully!")
-    });
-  });
-}
 
 const app = express();
 
