@@ -13,7 +13,7 @@ import {
 
 router.get("/", (req, res) => {
   // res.render("./public/homepage.ejs");
-  res.render(path.resolve(VIEWS, "public", "homepage.ejs"));
+  res.render(path.resolve(VIEWS, "public", "homepage.ejs"), { title: "Homepage" });
 })
 
 router.get("/login", (req, res) => {
