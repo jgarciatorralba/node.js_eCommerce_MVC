@@ -2,9 +2,16 @@
 
 <div>
 
-  <% data.forEach(item => { %>
+  <% products.forEach(item => { %>
     <p><%- item.title %></p>
     <p><%- item.description %></p>
+    <% let productImages = [] %>
+    <% images.forEach(image => { %>
+      <% if(image.product_id == item.id){ %>
+        <% productImages.push(image) %>
+      <% } %>
+    <% }) %>
+    <img src="<%- productImages[0].path %>" alt="" width="100px">
   <% }) %>
 
 </div>
