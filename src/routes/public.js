@@ -12,24 +12,21 @@ import {
 } from "./../config/app-config.js";
 
 router.get("/", (req, res) => {
-  // res.render("./public/homepage.ejs");
-  res.render(path.resolve(VIEWS, "public", "homepage.ejs"), { title: "Homepage" });
+  res.render(path.resolve(VIEWS, "public", "homepage"), { title: "Homepage" });
 })
 
-router.get("/login", (req, res) => {
-  res.send("Login");
+router.get("/product/:id", (req, res) => {
+  const productId = req.params.id;
+  res.send("Product " + productId);
 })
 
-router.get("/register", (req, res) => {
-  res.send("Register");
+router.get("/cart", (req, res) => {
+  res.send("Shopping cart");
 })
 
-router.get("/reset", (req, res) => {
-  res.send("Reset password");
-})
-
-router.get("/profile", (req, res) => {
-  res.send("View profile details");
+router.get("/checkout/:step", (req, res) => {
+  const checkoutStep = req.params.step;
+  res.send("Checkout process - step " + checkoutStep);
 })
 
 export {
