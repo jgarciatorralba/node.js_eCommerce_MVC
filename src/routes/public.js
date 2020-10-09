@@ -6,8 +6,14 @@ import express from "express";
 
 const router = express.Router();
 
+// Import VIEWS path
+import {
+  VIEWS
+} from "./../config/app-config.js";
+
 router.get("/", (req, res) => {
-  res.render("./public/homepage.ejs");
+  // res.render("./public/homepage.ejs");
+  res.render(path.resolve(VIEWS, "public", "homepage.ejs"));
 })
 
 router.get("/login", (req, res) => {
