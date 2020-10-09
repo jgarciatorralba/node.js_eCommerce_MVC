@@ -34,14 +34,13 @@ db.connect((err) => {
   // On connection, then do...
   console.log("MySql connected...");
   let filePath = path.resolve(__dirname, "demo_db.sql");
-  // Read, file, create database and close connection
-  createDbFromFile(filePath);
-});
 
-// Helper function to create and populate db, then close connection
-function createDbFromFile(path) {
-  fs.readFile(path, 'utf8', (err, data) => {
-    if (err) throw err;
+  // Read file
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    // On file read, then do...
+    if (err) throw err
+
+    // Store all queries as promises
     let promises = [];
     let sqlQueries = data.split(";");
     console.log("Executing queries...");
@@ -60,15 +59,20 @@ function createDbFromFile(path) {
         promises.push(promise);
       }
     })
-    Promise.all(promises).then((results) => {
-      results.forEach(result => {
-        console.log(result);
-      })
-      console.log("Database created successfully!");
-      db.end((err) => {
-        if (err) console.log(err);
-        console.log("Connection ended...");
+
+    // Resolve all promises
+    Promise.all(promises)
+      .then((results) => {
+        results.forEach(result => {
+          console.log(result);
+        })
+        console.log("Database created successfully!");
+        
+        // Close connection
+        db.end((err) => {
+          if (err) console.log(err);
+          console.log("Connection ended...");
+        });
       });
-    });
-  });
-}
+  })
+});
