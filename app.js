@@ -17,6 +17,8 @@ const app = express();
 // Set path to folder 'views'
 app.set('views', VIEWS);
 
+// PUBLIC-FACING VIEWS
+
 // Set templating engine
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -25,21 +27,16 @@ app.set('view engine', 'ejs');
 app.set('layout', path.resolve(VIEWS, "public", "layout.ejs"));
 
 // Routes for views in 'views/public'
-import {
-  router as router_public
-} from "./src/routes/public.js";
-
+import { router as router_public } from "./src/routes/public.js";
 app.use("/", router_public);
-app.use("/login", router_public);
-app.use("/register", router_public);
-app.use("/reset", router_public);
-app.use("/profile", router_public);
+
+import { router as router_user } from "./src/routes/user.js";
+app.use("/user", router_user);
+
+// DASHBOARD VIEWS
 
 // Routes for views in 'views/dashboard'
-import {
-  router as router_dashboard
-} from "./src/routes/dashboard.js";
-
+import { router as router_dashboard } from "./src/routes/dashboard.js";
 app.use("/dashboard", router_dashboard);
 
 app.listen(APP_PORT, () => {
