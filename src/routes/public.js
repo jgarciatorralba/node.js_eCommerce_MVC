@@ -11,11 +11,7 @@ import * as publicController from "./../controllers/publicController.js";
 
 // Handle requests
 router.get("/", publicController.index);
-
-router.get("/product/:id", (req, res) => {
-  const productId = req.params.id;
-  res.send("Product " + productId);
-})
+router.get("/product/:id", publicController.getProduct);
 
 router.get("/cart", (req, res) => {
   res.send("Shopping cart");
