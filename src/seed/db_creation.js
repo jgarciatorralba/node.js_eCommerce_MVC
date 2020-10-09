@@ -2,29 +2,15 @@
 import path from "path";
 import fs from "fs";
 
-// Import dependencies
-import mysql from "mysql";
-
-// Import constants from own file 'app-config.js'
+// Import db connection creation from own file 'app-config.js'
 import {
-  DB_PORT,
-  DB_HOST,
-  DB_USER,
-  DB_PASSWORD
+  db
 } from "./../config/app-config.js";
 
 // Alternative to '__dirname' when using ES6 modules (import)
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Create connection
-const db = mysql.createConnection({
-  host: DB_HOST,
-  port: DB_PORT,
-  user: DB_USER,
-  password: DB_PASSWORD
-});
 
 // Connect
 db.connect((err) => {
