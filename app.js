@@ -15,8 +15,8 @@ import {
 const app = express();
 
 // Connecting route to db
-app.use(function(req, res, next) {
-  req.con = con
+app.use((req, res, next) => {
+  req.con = con;
   next()
 });
 
