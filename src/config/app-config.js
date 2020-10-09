@@ -20,7 +20,7 @@ const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 
 // Create connection
-const db = mysql.createConnection({
+const con = mysql.createConnection({
   host: DB_HOST,
   port: DB_PORT,
   user: DB_USER,
@@ -31,5 +31,5 @@ const db = mysql.createConnection({
 export {
   APP_PORT,
   VIEWS,
-  db
+  con
 };
