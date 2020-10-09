@@ -2,10 +2,10 @@
   "name": "nodejs_mvc",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node app.js",
     "dev": "npx nodemon",
     "create-db": "node ./src/seed/db_creation.js"
   },
