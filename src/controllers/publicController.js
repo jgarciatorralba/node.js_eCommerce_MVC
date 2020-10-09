@@ -2,7 +2,7 @@
 import path from "path";
 
 // Import model methods
-import { get } from "./../models/Products.js";
+import * as Product from "./../models/Products.js";
 
 // Import VIEWS path
 import {
@@ -10,7 +10,7 @@ import {
 } from "./../config/app-config.js";
 
 export function index(req, res){
-  get(req.con, (err, data) => {
+  Product.get(req.con, (err, data) => {
     res.render(
       path.resolve(VIEWS, "public", "homepage"),
       { title: "Homepage", data: data }
