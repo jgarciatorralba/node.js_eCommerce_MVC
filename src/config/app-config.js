@@ -1,7 +1,7 @@
 // Import native 'node.js' modules
 import path from "path";
 
-// Import dependency 'dotenv'
+// Import dependencies
 import {} from "dotenv/config.js";
 
 // Application port for express
