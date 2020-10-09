@@ -2,33 +2,31 @@
 import path from "path";
 import fs from "fs";
 
-// Alternative to '__dirname' when using ES6 modules (import)
-import {
-  dirname
-} from "path";
-import {
-  fileURLToPath
-} from "url";
-const __dirname = dirname(fileURLToPath(
-  import.meta.url));
-
-// Import dependency 'express'
+// Import dependencies
 import express from "express";
-
-// Import dependency 'mysql'
+import expressLayouts from "express-ejs-layouts";
 import mysql from "mysql";
 
-// Import own files
+// Import own file 'app-config.js'
 import {
-  APP_PORT
+  APP_PORT,
+  DB_PORT,
+  DB_HOST,
+  DB_USER,
+  DB_PASSWORD
 } from "./config/app-config.js";
+
+// Alternative to '__dirname' when using ES6 modules (import)
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Create connection
 const db = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "",
+  host: DB_HOST,
+  port: DB_PORT,
+  user: DB_USER,
+  password: DB_PASSWORD,
   // database: "eCommerce",
 });
 
@@ -79,16 +77,25 @@ const app = express();
 
 // EJS
 
-// Import VIEWS path and set it to folder 'views'
+// Import VIEWS path
 import {
   VIEWS
 } from "./config/app-config.js";
+// Set path to folder 'views'
 app.set('views', VIEWS);
+
+// Set templating engine
+app.use(expressLayouts);
+app.set('view engine', 'ejs');
+
+// Set main layout folder
+app.set('layout', path.resolve(VIEWS, "public", "layout.ejs"));
 
 // Routes for views in 'views/public'
 import {
   router as router_public
 } from "./routes/public.js";
+
 app.use("/", router_public);
 app.use("/login", router_public);
 app.use("/register", router_public);
@@ -99,6 +106,7 @@ app.use("/profile", router_public);
 import {
   router as router_dashboard
 } from "./routes/dashboard.js";
+
 app.use("/dashboard", router_dashboard);
 
 app.listen(APP_PORT, () => {
