@@ -25,6 +25,9 @@ app.use((req, res, next) => {
 app.use(express.static('public'));
 // Allow Bootstrap
 app.use("/styles/css", express.static(path.resolve(process.cwd(), "node_modules/bootstrap/dist/css")));
+app.use("/js", express.static(path.resolve(process.cwd(), "node_modules/bootstrap/dist/js")));
+// Allow jQuery
+app.use("/js", express.static(path.resolve(process.cwd(), "node_modules/jquery/dist")));
 
 // EJS
 
