@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="/">
     <img
       src="/img/logo.png"
       width="30" height="30" class="rounded d-inline-block align-top mr-2 mt-0" alt="">
-    <div class="d-none d-sm-inline-block mt-0">
+    <div class="d-none d-sm-inline-block mt-0 text-muted" id="logo">
       Jewelz
     </div>
   </a>
@@ -15,22 +15,26 @@
 
   <div class="collapse navbar-collapse" id="navbarToggler">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 w-100 d-flex justify-content-between">
-      <div class="block-1 w-auto mt-0">
-        <li id="dashboard" class="nav-item text-right d-lg-inline-block">
-          <a class="nav-link" href="#">
+      <div class="w-auto mt-0">
+        <li id="profile" class="nav-item text-right d-lg-inline-block">
+          <a class="nav-link" href="/user/profile">
             Profile
-            <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li id="employee" class="nav-item text-right d-lg-inline-block">
-          <a class="nav-link" href="#">
+        <li id="cart" class="nav-item text-right d-lg-inline-block">
+          <a class="nav-link" href="/cart">
             Cart
           </a>
         </li>
       </div>
-      <div class="block-2 mt-0">
-        <li class="nav-item text-right">
-          <a class="nav-link" href="#">
+      <div class="w-auto mt-0">
+        <li class="nav-item text-right d-lg-inline-block">
+          <a class="nav-link" href="/user/login">
+            Login
+          </a>
+        </li>
+        <li class="nav-item text-right d-lg-inline-block">
+          <a class="nav-link" href="/">
             Logout
           </a>
         </li>
