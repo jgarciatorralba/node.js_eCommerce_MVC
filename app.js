@@ -4,6 +4,7 @@ import path from "path";
 // Import dependencies
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
+import {} from "dotenv/config.js";
 
 // Import constants from own file 'app-config.js'
 import {
@@ -14,11 +15,16 @@ import {
 
 const app = express();
 
-// Connecting route to db
+// Connecting routing to db
 app.use((req, res, next) => {
   req.con = con;
   next()
 });
+
+// Allow "public" folder to serve static files
+app.use(express.static('public'));
+// Allow Bootstrap
+app.use("/styles/css", express.static(path.resolve(process.cwd(), "node_modules/bootstrap/dist/css")));
 
 // EJS
 
