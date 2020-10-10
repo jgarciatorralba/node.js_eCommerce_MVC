@@ -36,3 +36,7 @@ export function getProduct(req, res){
       });
   })
 }
+
+export function goToCart(req, res){
+  res.render(path.resolve(VIEWS, "public", "cart.ejs"), { title: "Shopping cart" });
+}
