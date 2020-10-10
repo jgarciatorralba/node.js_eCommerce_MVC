@@ -1,4 +1,5 @@
 const url = window.location.href;
+
 if (url.includes('profile')) {
   document.getElementById('profile').classList.add('active');
   document.getElementById('cart').classList.remove('active');
