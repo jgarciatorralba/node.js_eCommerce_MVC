@@ -24,7 +24,7 @@ router.get("/reset", (req, res) => {
 })
 
 router.get("/profile", (req, res) => {
-  res.send("View profile details");
+  res.render(path.resolve(VIEWS, "public", "profile.ejs"), { title: "Profile" });
 })
 
 export {
