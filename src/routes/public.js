@@ -14,9 +14,7 @@ router.get("/", publicController.index);
 
 router.get("/product/:id", publicController.getProduct);
 
-router.get("/cart", (req, res) => {
-  res.send("Shopping cart");
-})
+router.get("/cart", publicController.goToCart);
 
 router.get("/checkout/:step", (req, res) => {
   const checkoutStep = req.params.step;
