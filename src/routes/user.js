@@ -11,6 +11,7 @@ import {
   VIEWS
 } from "../config/app-config.js";
 
+// Routes
 router.get("/login", (req, res) => {
   res.render(path.resolve(VIEWS, "public", "login.ejs"), { title: "Login" });
 })

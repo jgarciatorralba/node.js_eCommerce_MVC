@@ -11,6 +11,7 @@ import {
   VIEWS
 } from "./../config/app-config.js";
 
+// Routes
 router.get("/", (req, res) => {
   res.render(path.resolve(VIEWS, "dashboard", "dashboard.ejs"), { title: "Homepage" });
 })

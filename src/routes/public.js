@@ -9,8 +9,9 @@ const router = express.Router();
 // Import controller methods
 import * as publicController from "./../controllers/publicController.js";
 
-// Handle requests
+// Routes
 router.get("/", publicController.index);
+
 router.get("/product/:id", publicController.getProduct);
 
 router.get("/cart", (req, res) => {
