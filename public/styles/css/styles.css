@@ -134,3 +134,13 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+/* FORM ERROR MESSAGE */
+
+.cont-error {
+  margin-bottom: 10px;
+}
+
+.cont-error .alert {
+  margin-bottom: 0 !important;
+}
