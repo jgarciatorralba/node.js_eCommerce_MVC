@@ -154,4 +154,7 @@ body {
 nav a div {
   font-family: 'Lobster', cursive;
   padding-bottom: 2px;
+  /* color: gray;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #e83e8c; */
 }
