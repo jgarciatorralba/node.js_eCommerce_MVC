@@ -16,7 +16,7 @@ router.get("/login", (req, res) => {
 })
 
 router.get("/register", (req, res) => {
-  res.send("Register");
+  res.render(path.resolve(VIEWS, "public", "register.ejs"), { title: "Register" });
 })
 
 router.get("/reset", (req, res) => {
