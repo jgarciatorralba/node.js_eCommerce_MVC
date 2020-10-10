@@ -40,7 +40,7 @@ app.set('views', VIEWS);
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
-// Set main layout folder
+// Set main layout file
 app.set('layout', path.resolve(VIEWS, "public", "layout.ejs"));
 
 // Routes for views in 'views/public'
