@@ -49,8 +49,6 @@ export function paginatedIndex(req, res){
 
 export function getPageContent(req, res){
   Product.getPage(req.con, req.params.page, (err, content) => {
-    // return content;
-    console.log(content);
     res.send(content);
   })
 }
