@@ -36,6 +36,9 @@
                   type="button" 
                   class="btn btn-sm btn-outline-secondary" 
                   data-product_id="<%- product.id %>"
+                  <% if(product.stock == 0) { %>
+                    disabled
+                  <% } %>
                 >
                   Add to cart
                 </button>

@@ -30,6 +30,9 @@ function printCard(product, images) {
     }
   })
 
+  let disabled = "";
+  if (product.stock == 0) disabled = "disabled";
+
   let productCard = `
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
@@ -51,8 +54,9 @@ function printCard(product, images) {
             <button 
               type="button" 
               class="btn btn-sm btn-outline-secondary" 
-              data-product_id="${product.id}"
-            >
+              data-product_id="${product.id}"` + 
+              disabled + 
+            `>
               Add to cart
             </button>
             <b class="text-body">
