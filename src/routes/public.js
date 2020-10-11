@@ -10,7 +10,9 @@ const router = express.Router();
 import * as publicController from "./../controllers/publicController.js";
 
 // Routes
-router.get("/", publicController.index);
+// router.get("/", publicController.index);
+router.get("/", publicController.paginatedIndex);
+router.get("/products/:page", publicController.getPageContent);
 
 router.get("/product/:id", publicController.getProduct);
 
