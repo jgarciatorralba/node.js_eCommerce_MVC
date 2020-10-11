@@ -32,8 +32,13 @@ nav a div {
 
 /* HOMEPAGE CARDS */
 
+.album .card:hover {
+  transform: scale(1.05);
+}
+
 .album .card img {
   border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 .album .card-body {
