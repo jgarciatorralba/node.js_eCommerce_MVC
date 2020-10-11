@@ -3,7 +3,7 @@
  * in the database
  */
 
-const pageSize = 10;
+export const pageSize = 6;
 
 // Get all products in the db
 export function get(con, callback){
