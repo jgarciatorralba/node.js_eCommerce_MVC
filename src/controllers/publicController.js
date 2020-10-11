@@ -48,8 +48,13 @@ export function paginatedIndex(req, res){
 }
 
 export function getPageContent(req, res){
-  Product.getPage(req.con, req.params.page, (err, content) => {
-    res.send(content);
+  Product.getPage(req.con, req.params.page, (err, products) => {
+    Image.get(req.con, (err, images) => {
+      res.send({
+        products: products,
+        images: images
+      });
+    })
   })
 }
 
