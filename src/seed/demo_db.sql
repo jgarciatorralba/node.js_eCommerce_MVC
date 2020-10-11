@@ -51,13 +51,13 @@ INSERT INTO USERS VALUES(2, "John Doe", "123456", "johndoe@mail.com", "employee"
 
 -- Products;
 INSERT INTO PRODUCTS VALUES(1, "4ever Gold", "A ring which is actually 4!", 29.95, 100);
-INSERT INTO PRODUCTS VALUES(2, "Midi ring", "Elegant and easy to combine", 14.95, 100);
-INSERT INTO PRODUCTS VALUES(3, "Silver wave", "The spirit of the Sea and the beauty of the waves merge on this ring", 29.95, 100);
-INSERT INTO PRODUCTS VALUES(4, "World necklace", "For the wanderers and those who love to travel", 29.95, 100);
-INSERT INTO PRODUCTS VALUES(5, "Sister necklace", "Two golden rings which once joined their forces to make the sum of all", 29.95, 100);
-INSERT INTO PRODUCTS VALUES(6, "Pearl necklace", "This necklace gives a special touch as every pearl is unique", 39.95, 100);
-INSERT INTO PRODUCTS VALUES(7, "Bungavilla earrings", "Fill your ears with airs of spring and flowers", 39.95, 100);
-INSERT INTO PRODUCTS VALUES(8, "Obbo earrings", "Organic lines play with symmetry creating the perfect shape to decorate your ears", 35.95, 100);
+INSERT INTO PRODUCTS VALUES(2, "Midi ring", "Elegant and easy to combine.", 14.95, 100);
+INSERT INTO PRODUCTS VALUES(3, "Silver wave", "The spirit of the Sea and the beauty of the waves merge on this ring.", 29.95, 100);
+INSERT INTO PRODUCTS VALUES(4, "World necklace", "For the wanderers and those who love to travel.", 29.95, 100);
+INSERT INTO PRODUCTS VALUES(5, "Sister necklace", "Two golden rings which once joined their forces to make the sum of all.", 29.95, 100);
+INSERT INTO PRODUCTS VALUES(6, "Pearl necklace", "This necklace gives a special touch as every pearl is unique.", 39.95, 100);
+INSERT INTO PRODUCTS VALUES(7, "Bungavilla earrings", "Fill your ears with airs of spring and flowers.", 39.95, 100);
+INSERT INTO PRODUCTS VALUES(8, "Obbo earrings", "Organic lines play with symmetry creating the perfect shape to decorate your ears.", 35.95, 100);
 
 -- Images;
 INSERT INTO IMAGES VALUES(1, 1, "https://i.ibb.co/ChtcCkQ/prod-1-1.jpg");
