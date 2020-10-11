@@ -27,6 +27,34 @@ export function index(req, res){
   })
 }
 
+export function paginatedIndex(req, res){
+  Product.getNumProducts(req.con, (err, results) => {
+    let numProducts = results[0].numProducts;
+    let pageSize = Product.pageSize;
+    let totalPages = Math.ceil(numProducts / pageSize);
+
+    Product.getPage(req.con, 1, (err, products) => {
+      Image.get(req.con, (err, images) => {
+        res.render(
+          path.resolve(VIEWS, "public", "homepage"), {
+            title: "Homepage",
+            images: images,
+            products: products,
+            totalPages: totalPages
+          });
+      })
+    })
+  })
+}
+
+export function getPageContent(req, res){
+  Product.getPage(req.con, req.params.page, (err, content) => {
+    // return content;
+    console.log(content);
+    res.send(content);
+  })
+}
+
 export function getProduct(req, res){
   Product.getById(req.con, req.params.id, (err, product) => {
     res.render(
