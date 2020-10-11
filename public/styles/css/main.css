@@ -1,0 +1,37 @@
+/* IMPORTS */
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+/* FORM ERROR MESSAGE */
+
+.cont-error {
+  margin-bottom: 10px;
+}
+
+.cont-error .alert {
+  margin-bottom: 0 !important;
+}
+
+/* NAVBAR */
+
+nav a div {
+  font-family: 'Lobster', cursive;
+  padding-bottom: 2px;
+}
+
+/* HOMEPAGE CARDS */
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
