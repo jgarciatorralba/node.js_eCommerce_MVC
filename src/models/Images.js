@@ -11,3 +11,7 @@ export function get(con, callback){
 export function getById(con, id, callback){
   con.query("SELECT * FROM images WHERE id = ?", [id], callback)
 }
+
+export function getByProductId(con, productId, callback){
+  con.query("SELECT * FROM images WHERE product_id = ?", [productId], callback)
+}
