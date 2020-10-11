@@ -25,7 +25,7 @@ router.get("/reset", (req, res) => {
 })
 
 router.get("/profile", (req, res) => {
-  res.render(path.resolve(VIEWS, "public", "profile.ejs"), { title: "Profile", layout: "./public/layouts/layout-user" });
+  res.render(path.resolve(VIEWS, "public", "profile.ejs"), { title: "Profile" });
 })
 
 export {
