@@ -1,14 +1,14 @@
 <%- include ('partials/navbar.ejs') %>
 
-<div class="album pt-5 pb-3">
+<div class="album pt-4 pb-1">
   <div class="container">
     <div class="row">
-      
+
       <% products.forEach(product => { %>
-        
+
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            
+
             <% let productImages = [] %>
             <% images.forEach(image => { %>
               <% if(image.product_id == product.id){ %>
@@ -20,7 +20,7 @@
               alt="" 
               width="100%"
             >
-            
+
             <div class="card-body border-top">
               <b class="card-text">
                 <%- product.title %>
@@ -50,9 +50,19 @@
   </div>
 </div>
 
-<div class="d-flex justify-content-center mb-3">
-  <button type="button" class="btn btn-primary">
-    Load more
-  </button>
-</div>
+<% if(totalPages > 1) { %>
+  <div class="d-flex justify-content-center mb-3">
+    <button 
+      type="button" 
+      id="loadPage"
+      class="btn btn-primary" 
+      data-currentPage="1" 
+      data-totalPages="<%- totalPages %>"
+    >
+      Load more
+    </button>
+  </div>
+<% } %>
+
+<script src="/js/pagination.js"></script>
 
