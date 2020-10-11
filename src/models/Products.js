@@ -11,7 +11,7 @@ export function get(con, callback){
 }
 
 // Get all products in the db with pagination
-export function get(con, page, callback){
+export function getPage(con, page, callback){
   let offset = (page - 1) * pageSize;
   let limit = pageSize;
   con.query("SELECT * FROM products LIMIT ?, ?", [offset, limit], callback)
