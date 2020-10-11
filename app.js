@@ -41,7 +41,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 // Set main layout file
-app.set('layout', path.resolve(VIEWS, "public", "layout.ejs"));
+app.set('layout', path.resolve(VIEWS, "public", "layouts", "layout-main.ejs"));
 
 // Routes for views in 'views/public'
 import { router as router_public } from "./src/routes/public.js";
