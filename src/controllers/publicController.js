@@ -60,11 +60,14 @@ export function getPageContent(req, res){
 
 export function getProduct(req, res){
   Product.getById(req.con, req.params.id, (err, product) => {
-    res.render(
-      path.resolve(VIEWS, "public", "product-details"), {
-        title: "Product",
-        product: product
-      });
+    Image.getByProductId(req.con, req.params.id, (err, images) => {
+      res.render(
+        path.resolve(VIEWS, "public", "product-details"), {
+          title: "Product",
+          product: product,
+          images: images
+        });
+    })
   })
 }
 
