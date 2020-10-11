@@ -15,11 +15,14 @@
                 <% productImages.push(image) %>
               <% } %>
             <% }) %>
-            <img 
-              src="<%- productImages[0].path %>" 
-              alt="" 
-              width="100%"
-            >
+            <a href="/product/<%- product.id %>">
+              <img 
+                src="<%- productImages[0].path %>" 
+                alt="" 
+                width="100%"
+              >
+            </a>
+            
 
             <div class="card-body border-top">
               <b class="card-text">

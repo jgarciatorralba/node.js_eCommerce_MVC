@@ -33,11 +33,13 @@ function printCard(product, images) {
   let productCard = `
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
-        <img 
-          src="${productImages[0].path}" 
-          alt="" 
-          width="100%"
-        >
+        <a href="/product/${product.id}">
+          <img 
+            src="${productImages[0].path}" 
+            alt="" 
+            width="100%"
+          >
+        </a>
         <div class="card-body border-top">
           <b class="card-text">
             ${product.title}
