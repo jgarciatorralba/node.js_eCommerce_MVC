@@ -62,7 +62,7 @@ export function getProduct(req, res){
   Product.getById(req.con, req.params.id, (err, product) => {
     Image.getByProductId(req.con, req.params.id, (err, images) => {
       res.render(
-        path.resolve(VIEWS, "public", "product-details"), {
+        path.resolve(VIEWS, "public", "product", "product-details"), {
           title: "Product",
           product: product,
           images: images
@@ -72,11 +72,11 @@ export function getProduct(req, res){
 }
 
 export function goToCart(req, res){
-  res.render(path.resolve(VIEWS, "public", "cart.ejs"), { title: "Shopping cart" });
+  res.render(path.resolve(VIEWS, "public", "product", "cart.ejs"), { title: "Shopping cart" });
 }
 
 export function goToCheckout(req, res){
   let step = req.params.step;
   let checkoutView = "checkout-" + step + ".ejs";
-  res.render(path.resolve(VIEWS, "public", checkoutView), { title: "Checkout" });
+  res.render(path.resolve(VIEWS, "public", "product", checkoutView), { title: "Checkout" });
 }
