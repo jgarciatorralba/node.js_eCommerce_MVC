@@ -74,3 +74,9 @@ export function getProduct(req, res){
 export function goToCart(req, res){
   res.render(path.resolve(VIEWS, "public", "cart.ejs"), { title: "Shopping cart" });
 }
+
+export function goToCheckout(req, res){
+  let step = req.params.step;
+  let checkoutView = "checkout-" + step + ".ejs";
+  res.render(path.resolve(VIEWS, "public", checkoutView), { title: "Checkout" });
+}
