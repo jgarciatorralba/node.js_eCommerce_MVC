@@ -1,0 +1,33 @@
+<%- include ('partials/navbar.ejs') %>
+
+<div class="checkout-3 p-5">
+  <div class="container-fluid">
+    <h4 class="h4 text-center">
+      Checkout process
+    </h4>
+    <h5 class="h5 text-center">
+      Review your order details
+    </h5>
+
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <form action="">
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" value="" id="terms">
+            <label class="form-check-label" for="terms">
+              I accept the <u>Terms and Conditions</u>
+            </label>
+          </div>
+
+          <a href="/checkout/2" class="btn btn-secondary">Back</a>
+          <button type="submit" class="btn btn-primary">
+            Confirm
+          </button>
+        </form>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>
