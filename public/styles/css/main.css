@@ -48,3 +48,9 @@ nav a div {
 .album .card-body p {
   height: 20vh;
 }
+
+/* SHOPPING CART */
+
+.cart input[type="number"] {
+  width: 65px !important;
+}
