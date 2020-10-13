@@ -1,6 +1,6 @@
 <div class="container d-flex justify-content-center align-items-center cont-register">
   <div class="text-center w-100">
-    <form class="form-register" autocomplete="off">
+    <form class="form-register" autocomplete="off" action="/user/register" method="POST">
       <a href="/">
         <img class="mb-4" src="/img/logo.png" alt="" width="72" height="72">
       </a>
@@ -10,17 +10,21 @@
       <label for="registerName" class="sr-only">
         Full Name
       </label>
-      <input type="text" id="registerName" class="form-control" placeholder="Full Name" required autofocus>
+      <input type="text" id="registerName" name="registerName" class="form-control" placeholder="Full Name" required autofocus>
       <label for="registerEmail" class="sr-only">
         Email address
       </label>
-      <input type="email" id="registerEmail" class="form-control" placeholder="Email address" required>
+      <input type="email" id="registerEmail" name="registerEmail" class="form-control" placeholder="Email address" required>
       <label for="registerPassword" class="sr-only">
         Password
       </label>
-      <input type="password" id="registerPassword" class="form-control" placeholder="Password" required>
+      <input type="password" id="registerPassword" name="registerPassword" class="form-control" placeholder="Password" required>
 
       <%- include ('../partials/errors.ejs') %>
+
+      <% if(typeof(message) != "undefined") { %>
+        <p><%- message %></p>
+      <% } %>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create account
