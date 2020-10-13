@@ -3,6 +3,9 @@
     <% if(message.code !== undefined) { %>
       <div class="alert alert-danger alert-dismissible fade show">
         <strong>Error!</strong> <%- message.sqlMessage %>
+    <% } else if (message.message !== undefined) { %>
+      <div class="alert alert-danger alert-dismissible fade show">
+        <strong>Error!</strong> <%- message.message %>
     <% } else { %>
       <div class="alert alert-success alert-dismissible fade show">
         <strong>Success!</strong> <%- message %>
