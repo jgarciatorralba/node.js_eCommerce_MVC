@@ -27,6 +27,22 @@ export function index(req, res){
   })
 }
 
+// Version with promises
+// export async function index(req, res){
+//   try {
+//     results = await Product.get(req.con);
+//   } catch(e){
+//     throw e;
+//   }
+//   res.render(
+//     path.resolve(VIEWS, "public", "homepage"), {
+//       title: "Homepage",
+//       images: images,
+//       products: products
+//     }
+//   )
+// }
+
 export function paginatedIndex(req, res){
   Product.getNumProducts(req.con, (err, results) => {
     let numProducts = results[0].numProducts;
@@ -78,5 +94,7 @@ export function goToCart(req, res){
 export function goToCheckout(req, res){
   let step = req.params.step;
   let checkoutView = "checkout-" + step + ".ejs";
-  res.render(path.resolve(VIEWS, "public", "product", checkoutView), { title: "Checkout" });
+  res.render(path.resolve(VIEWS, "public", "product", checkoutView), {
+    title: "Checkout"
+  });
 }

@@ -10,6 +10,22 @@ export function get(con, callback){
   con.query("SELECT * FROM products", callback)
 }
 
+// Version with promises
+// export function get(con) {
+//   return new Promise((resolve, reject) => {
+//     con.query("SELECT * FROM products", function(error, result) {
+//       if (error) {
+//         reject(new Error("Database error"))
+//       }
+//       if (result.length == 0) {
+//         reject(new Error("No results found"))
+//       } else {
+//         resolve(result)
+//       }
+//     })
+//   })
+// }
+
 // Get products count
 export function getNumProducts(con, callback){
   con.query("SELECT COUNT(*) AS numProducts FROM products", callback);
