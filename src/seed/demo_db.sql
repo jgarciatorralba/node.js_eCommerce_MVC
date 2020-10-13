@@ -19,7 +19,7 @@ CREATE TABLE customers(
   id SMALLINT AUTO_INCREMENT,
   fullname VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
   address VARCHAR(255),
   zipCode VARCHAR(255),
   country VARCHAR(255),
