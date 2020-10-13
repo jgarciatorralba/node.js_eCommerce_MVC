@@ -47,9 +47,5 @@ export class UserController {
         path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: error }
       );
     })
-
-    // res.render(
-    //   path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: message }
-    // );
   }
 }
