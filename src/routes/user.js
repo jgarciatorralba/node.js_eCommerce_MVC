@@ -1,32 +1,17 @@
-// Import native 'node.js' modules
-import path from "path";
-
 // Import dependency 'express'
 import express from "express";
 
 const router = express.Router();
 
-// Import VIEWS path
-import {
-  VIEWS
-} from "../config/app-config.js";
+// Import controller methods
+import { UserController } from "./../controllers/userController.js";
+const userController = new UserController();
 
 // Routes
-router.get("/login", (req, res) => {
-  res.render(path.resolve(VIEWS, "public", "user", "login.ejs"), { title: "Login", layout: "./public/layouts/layout-user" });
-})
-
-router.get("/register", (req, res) => {
-  res.render(path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user" });
-})
-
-router.get("/reset", (req, res) => {
-  res.render(path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user" });
-})
-
-router.get("/profile", (req, res) => {
-  res.render(path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile" });
-})
+router.get("/login", userController.goToLogin);
+router.get("/register", userController.goToRegister);
+router.get("/reset", userController.goToReset);
+router.get("/profile", userController.goToProfile);
 
 export {
   router
