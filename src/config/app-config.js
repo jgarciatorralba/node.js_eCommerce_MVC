@@ -11,6 +11,9 @@ const APP_PORT = process.env.APP_PORT;
 // Views folder path
 const VIEWS = path.resolve(process.cwd(), "src", "views");
 
+// Salt rounds for password encryption
+const SALT_ROUNDS = process.env.SALT_ROUNDS;
+
 // Secrets
 
 // Database credentials
@@ -33,5 +36,6 @@ const con = mysql.createConnection({
 export {
   APP_PORT,
   VIEWS,
+  SALT_ROUNDS,
   con
 };
