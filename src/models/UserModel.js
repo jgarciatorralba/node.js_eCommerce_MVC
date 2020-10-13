@@ -21,4 +21,31 @@ export class UserModel {
       })
     })
   }
+
+  getByEmail(email){
+    return new Promise((resolve, reject) => {
+      this.con.query("SELECT * FROM customers WHERE email = ?", [email], (error, result) => {
+        if (error) {
+          reject(error)
+        }
+        if (result.length == 0) {
+          reject(new Error("No results found in the database"))
+        } else {
+          resolve(result)
+        }
+      })
+    })
+  }
+
+  updatePassword(customer, password){
+    return new Promise((resolve, reject) => {
+      this.con.query("UPDATE customers SET password = ? WHERE id = ?", [password, customer.id], (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve("New password sent to email " + customer.email);
+        }
+      })
+    })
+  }
 }
