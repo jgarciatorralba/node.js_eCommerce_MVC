@@ -1,2 +1,42 @@
 <%- include ('../partials/navbar.ejs') %>
-<h1>Profile page</h1>
+
+<div class="profile p-5">
+  <div class="container-fluid">
+    <h4 class="h4 text-center pb-3 mb-3 border-bottom">
+      Profile information
+    </h4>
+
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <form action="">
+          <div class="form-group mb-2">
+            <label for="profileName">Full name</label>
+            <input class="form-control" type="text" name="profileName" id="profileName">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="profileEmail">Email</label>
+            <input class="form-control" type="text" name="profileEmail" id="profileEmail">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="newPassword">New password</label>
+            <input class="form-control" type="text" name="newPassword" id="newPassword">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="confirmPassword">Confirm new password</label>
+            <input class="form-control" type="text" name="confirmPassword" id="confirmPassword">
+          </div>
+
+          <a href="/" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">
+            Save
+          </button>
+        </form>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>
