@@ -4,7 +4,8 @@ import express from "express";
 const router = express.Router();
 
 // Import controller methods
-import * as publicController from "./../controllers/publicController.js";
+import { PublicController } from "./../controllers/publicController.js";
+const publicController = new PublicController();
 
 // Routes
 router.get("/", publicController.paginatedIndex);

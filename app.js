@@ -9,17 +9,10 @@ import {} from "dotenv/config.js";
 // Import constants from own file 'app-config.js'
 import {
   APP_PORT,
-  VIEWS,
-  con
+  VIEWS
 } from "./src/config/app-config.js";
 
 const app = express();
-
-// Connecting routing to db
-app.use((req, res, next) => {
-  req.con = con;
-  next()
-});
 
 // Allow "public" folder to serve static files
 app.use(express.static('public'));
@@ -56,7 +49,7 @@ app.use("/user", router_user);
 import { router as router_dashboard } from "./src/routes/dashboard.js";
 app.use("/dashboard", router_dashboard);
 
-// Error 404
+// 404 Error page
 app.use((req, res) => {
   res.status(404).render(path.resolve(VIEWS, "404.ejs"), {title: "Error", layout: "./public/layouts/layout-user"});
 })

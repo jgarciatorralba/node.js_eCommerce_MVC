@@ -1,100 +1,97 @@
-/**
- * Controller to handle all requests from the public-facing views
- */
-
 // Import native 'node.js' modules
 import path from "path";
 
-// Import models and methods
-import * as Product from "./../models/Products.js";
-import * as Image from "./../models/Images.js";
+// Import models
+import { ProductModel } from "../models/ProductModel.js";
+const Product = new ProductModel();
+import { ImageModel } from "../models/ImageModel.js";
+const Image = new ImageModel();
 
 // Import VIEWS path
 import {
   VIEWS
 } from "./../config/app-config.js";
 
-export function index(req, res){
-  Product.get(req.con, (err, products) => {
-    Image.get(req.con, (err, images) => {
+// Controller class
+export class PublicController {
+
+  async index(req, res){
+    try {
+      let products = await Product.get();
+      let images = await Image.get();
       res.render(
         path.resolve(VIEWS, "public", "homepage"), {
           title: "Homepage",
           images: images,
           products: products
-        });
-    })
-  })
-}
+        }
+      )
+    } catch(e){
+      throw e;
+    }
+  }
 
-// Version with promises
-// export async function index(req, res){
-//   try {
-//     results = await Product.get(req.con);
-//   } catch(e){
-//     throw e;
-//   }
-//   res.render(
-//     path.resolve(VIEWS, "public", "homepage"), {
-//       title: "Homepage",
-//       images: images,
-//       products: products
-//     }
-//   )
-// }
+  async paginatedIndex(req, res){
+    try{
+      let results = await Product.getNumProducts();
+      let numProducts = results[0].numProducts;
+      let pageSize = Product.pageSize;
+      let totalPages = Math.ceil(numProducts / pageSize);
+      let products = await Product.getPage(1);
+      let images = await Image.get();
+      res.render(
+        path.resolve(VIEWS, "public", "homepage"), {
+          title: "Homepage",
+          images: images,
+          products: products,
+          totalPages: totalPages
+        }
+      )
+    } catch(e) {
+      throw e;
+    }
+  }
 
-export function paginatedIndex(req, res){
-  Product.getNumProducts(req.con, (err, results) => {
-    let numProducts = results[0].numProducts;
-    let pageSize = Product.pageSize;
-    let totalPages = Math.ceil(numProducts / pageSize);
-
-    Product.getPage(req.con, 1, (err, products) => {
-      Image.get(req.con, (err, images) => {
-        res.render(
-          path.resolve(VIEWS, "public", "homepage"), {
-            title: "Homepage",
-            images: images,
-            products: products,
-            totalPages: totalPages
-          });
-      })
-    })
-  })
-}
-
-export function getPageContent(req, res){
-  Product.getPage(req.con, req.params.page, (err, products) => {
-    Image.get(req.con, (err, images) => {
+  async getPageContent(req, res){
+    try{
+      let products = await Product.getPage(req.params.page);
+      let images = await Image.get();
       res.send({
         products: products,
         images: images
       });
-    })
-  })
-}
+    } catch(e) {
+      throw e;
+    }
+  }
 
-export function getProduct(req, res){
-  Product.getById(req.con, req.params.id, (err, product) => {
-    Image.getByProductId(req.con, req.params.id, (err, images) => {
+  async getProduct(req, res){
+    try {
+      let product = await Product.getById(req.params.id);
+      let images = await Image.getByProductId(req.params.id);
       res.render(
         path.resolve(VIEWS, "public", "product", "product-details"), {
           title: "Product",
           product: product,
           images: images
-        });
-    })
-  })
-}
+        }
+      );
+    } catch(e) {
+      // res.redirect("/");
+      res.status(404).render(path.resolve(VIEWS, "404.ejs"), {title: "Error", layout: "./public/layouts/layout-user"});
+      throw e;
+    }
+  }
 
-export function goToCart(req, res){
-  res.render(path.resolve(VIEWS, "public", "product", "cart.ejs"), { title: "Shopping cart" });
-}
+  goToCart(req, res){
+    res.render(path.resolve(VIEWS, "public", "product", "cart.ejs"), { title: "Shopping cart" });
+  }
 
-export function goToCheckout(req, res){
-  let step = req.params.step;
-  let checkoutView = "checkout-" + step + ".ejs";
-  res.render(path.resolve(VIEWS, "public", "product", checkoutView), {
-    title: "Checkout"
-  });
+  goToCheckout(req, res){
+    let step = req.params.step;
+    let checkoutView = "checkout-" + step + ".ejs";
+    res.render(path.resolve(VIEWS, "public", "product", checkoutView), {
+      title: "Checkout"
+    });
+  }
 }
