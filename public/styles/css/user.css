@@ -144,3 +144,14 @@ body {
 .cont-error .alert {
   margin-bottom: 0 !important;
 }
+
+/* ERROR 404 PAGE */
+
+.cont-not-found {
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-content: center;
+}
