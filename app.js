@@ -56,6 +56,11 @@ app.use("/user", router_user);
 import { router as router_dashboard } from "./src/routes/dashboard.js";
 app.use("/dashboard", router_dashboard);
 
+// Error 404
+app.use((req, res) => {
+  res.status(404).render(path.resolve(VIEWS, "404.ejs"), {title: "Error", layout: "./public/layouts/layout-user"});
+})
+
 app.listen(APP_PORT, () => {
   console.log(`Server started on port ${APP_PORT}...`);
 });
