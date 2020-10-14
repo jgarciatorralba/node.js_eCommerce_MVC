@@ -6,14 +6,14 @@ export class AuthUtil {
     if(req.isAuthenticated()){
       return next();
     }
-    req.flash('error_msg', "Please log in to view this resource");
+    req.flash('warning_msg', "Please log in to view this resource");
     res.redirect("/user/login");
   }
 
   // Function to redirect to 'homepage' if authenticated
   ensureNotAuthenticated(req, res, next){
     if(req.isAuthenticated()){
-      req.flash('error_msg', "You are already logged in");
+      req.flash('warning_msg', "You are already logged in");
       res.redirect("/");
     } else {
       return next();
