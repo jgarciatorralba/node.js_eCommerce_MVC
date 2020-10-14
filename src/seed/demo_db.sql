@@ -46,8 +46,8 @@ CONSTRAINT FK_PRODUCT FOREIGN KEY(product_id) REFERENCES PRODUCTS(id) ON DELETE 
 
 -- Insert data;
 -- Users;
-INSERT INTO USERS VALUES(1, "Jorge García", "123456", "jorgar@mail.com", "admin", "https://ibb.co/r2Gbw6d");
-INSERT INTO USERS VALUES(2, "John Doe", "123456", "johndoe@mail.com", "employee", "https://ibb.co/r2Gbw6d");
+INSERT INTO USERS VALUES(1, "Jorge García", "$2b$10$DritACz1hhp5bHfkrbGjL.lRuXzYkHD2rhFABwuVqQ2C70yGVaZl.", "jorgar@mail.com", "admin", "https://ibb.co/r2Gbw6d");
+INSERT INTO USERS VALUES(2, "John Doe", "$2b$10$DritACz1hhp5bHfkrbGjL.lRuXzYkHD2rhFABwuVqQ2C70yGVaZl.", "johndoe@mail.com", "employee", "https://ibb.co/r2Gbw6d");
 
 -- Products;
 INSERT INTO PRODUCTS VALUES(1, "4ever Gold", "A ring which is actually 4!", 29.95, 100);
