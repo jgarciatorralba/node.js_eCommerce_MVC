@@ -16,7 +16,6 @@ export class UserModel {
         if (error) {
           reject(error)
         } else {
-          // resolve("New user created successfully!");
           resolve("You are now registered and can log in");
         }
       })
@@ -53,7 +52,7 @@ export class UserModel {
     })
   }
 
-  updatePassword(customer, password){
+  resetPassword(customer, password){
     return new Promise((resolve, reject) => {
       this.con.query("UPDATE customers SET password = ? WHERE id = ?", [password, customer.id], (error, result) => {
         if (error) {
@@ -62,6 +61,28 @@ export class UserModel {
           resolve("New password sent to email " + customer.email);
         }
       })
+    })
+  }
+
+  update(customer, array){
+    return new Promise((resolve, reject) => {
+      if (array[2] == '') {
+        this.con.query("UPDATE customers SET fullname = ?, email = ? WHERE id = ?", [array[0], array[1], customer.id], (error, result) => {
+          if (error) {
+            reject(error)
+          } else {
+            resolve("User updated successfully");
+          }
+        })
+      } else {
+        this.con.query("UPDATE customers SET fullname = ?, email = ?, password = ? WHERE id = ?", [array[0], array[1], array[2], customer.id], (error, result) => {
+          if (error) {
+            reject(error)
+          } else {
+            resolve("User updated successfully");
+          }
+        })
+      }
     })
   }
 }
