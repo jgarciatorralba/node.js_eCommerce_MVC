@@ -15,22 +15,6 @@ import {
 // Controller class
 export class PublicController {
 
-  async index(req, res){
-    try {
-      let products = await Product.get();
-      let images = await Image.get();
-      res.render(
-        path.resolve(VIEWS, "public", "homepage"), {
-          title: "Homepage",
-          images: images,
-          products: products
-        }
-      )
-    } catch(e){
-      throw e;
-    }
-  }
-
   async paginatedIndex(req, res){
     try{
       let results = await Product.getNumProducts();
@@ -44,7 +28,8 @@ export class PublicController {
           title: "Homepage",
           images: images,
           products: products,
-          totalPages: totalPages
+          totalPages: totalPages,
+          user: req.user
         }
       )
     } catch(e) {
@@ -73,25 +58,25 @@ export class PublicController {
         path.resolve(VIEWS, "public", "product", "product-details"), {
           title: "Product",
           product: product,
-          images: images
+          images: images,
+          user: req.user
         }
       );
     } catch(e) {
-      // res.redirect("/");
       res.status(404).render(path.resolve(VIEWS, "404.ejs"), {title: "Error", layout: "./public/layouts/layout-user"});
       throw e;
     }
   }
 
   goToCart(req, res){
-    res.render(path.resolve(VIEWS, "public", "product", "cart.ejs"), { title: "Shopping cart" });
+    res.render(path.resolve(VIEWS, "public", "product", "cart.ejs"), { title: "Shopping cart", user: req.user });
   }
 
   goToCheckout(req, res){
     let step = req.params.step;
     let checkoutView = "checkout-" + step + ".ejs";
     res.render(path.resolve(VIEWS, "public", "product", checkoutView), {
-      title: "Checkout"
+      title: "Checkout", user: req.user
     });
   }
 }
