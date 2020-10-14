@@ -23,23 +23,29 @@
   <div class="collapse navbar-collapse" id="navbarToggler">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 w-100 d-flex justify-content-between">
       <div class="w-auto mt-0">
-        <li id="profile" class="nav-item text-right d-lg-inline-block">
-          <a class="nav-link" href="/user/profile">
-            Profile
-          </a>
-        </li>
+        <% if(typeof(user) !== "undefined") { %>
+          <li id="profile" class="nav-item text-right d-lg-inline-block">
+            <a class="nav-link" href="/user/profile">
+              Profile
+            </a>
+          </li>
+        <% } %>
       </div>
       <div class="w-auto mt-0">
-        <li class="nav-item text-right d-lg-inline-block">
-          <a class="nav-link" href="/user/login">
-            Login
-          </a>
-        </li>
-        <li class="nav-item text-right d-lg-inline-block">
-          <a class="nav-link" href="/user/logout">
-            Logout
-          </a>
-        </li>
+        <% if(typeof(user) == "undefined") { %>
+          <li class="nav-item text-right d-lg-inline-block">
+            <a class="nav-link" href="/user/login">
+              Login
+            </a>
+          </li>
+        <% } %>
+        <% if(typeof(user) !== "undefined") { %>
+          <li class="nav-item text-right d-lg-inline-block">
+            <a class="nav-link" href="/user/logout">
+              Logout
+            </a>
+          </li>
+        <% } %>
       </div>
     </ul>
   </div>
