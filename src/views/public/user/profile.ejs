@@ -9,7 +9,10 @@
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <form action="" method="POST">
+
+        <%- include ('../partials/messages.ejs') %>
+
+        <form action="/user/profile" method="POST">
           <div class="form-group mb-2">
             <label for="profileName">Full name</label>
             <input 
@@ -17,6 +20,7 @@
               type="text" 
               name="profileName" 
               id="profileName" 
+              required 
               <% if(typeof(user) !== "undefined") { %>
                 value= "<%- user.fullname %>"
               <% } %>
@@ -30,6 +34,7 @@
               type="text" 
               name="profileEmail" 
               id="profileEmail" 
+              required 
               <% if(typeof(user) !== "undefined") { %>
                 value= "<%- user.email %>"
               <% } %>
@@ -37,22 +42,24 @@
           </div>
 
           <div class="form-group mb-2">
-            <label for="newPassword">New password</label>
+            <label for="newPassword">New password (optional)</label>
             <input 
               class="form-control" 
-              type="text" 
+              type="password" 
               name="newPassword" 
-              id="newPassword"
+              id="newPassword" 
+              minlength="6"
             >
           </div>
 
           <div class="form-group mb-2">
-            <label for="confirmPassword">Confirm new password</label>
+            <label for="confirmPassword">Confirm new password (optional)</label>
             <input 
               class="form-control" 
-              type="text" 
+              type="password" 
               name="confirmPassword" 
-              id="confirmPassword"
+              id="confirmPassword" 
+              minlength="6"
             >
           </div>
 
