@@ -32,10 +32,27 @@ const con = mysql.createConnection({
   database: DB_DATABASE
 });
 
+// MySQL Session
+let options = {
+  host: DB_HOST,
+  port: DB_PORT,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_DATABASE
+}
+
+// Cookie name and secret
+const cookie = {
+  name: process.env.COOKIE_NAME,
+  secret: process.env.COOKIE_SECRET
+}
+
 // Export all constants
 export {
   APP_PORT,
   VIEWS,
   SALT_ROUNDS,
-  con
+  con,
+  options,
+  cookie
 };
