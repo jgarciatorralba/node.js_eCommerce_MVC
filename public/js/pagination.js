@@ -1,6 +1,8 @@
 $('#loadPage').on('click', () => {
   let currentPage = parseInt($('#loadPage').attr('data-currentpage'));
   let totalPages = parseInt($('#loadPage').attr('data-totalpages'));
+  let userId = $('#loadPage').attr('data-userid');
+  console.log(userId);
 
   $('#loadPage').attr('data-currentPage', currentPage + 1);
 
@@ -9,7 +11,7 @@ $('#loadPage').on('click', () => {
     method: 'GET'
   }).done(response => {
     response.products.forEach(product => {
-      printCard(product, response.images);
+      printCard(product, userId, response.images);
     })
 
     currentPage++;
@@ -22,7 +24,7 @@ $('#loadPage').on('click', () => {
   });
 })
 
-function printCard(product, images) {
+function printCard(product, userId, images) {
   let productImages = [];
   images.forEach(image => {
     if (image.product_id == product.id) {
@@ -32,6 +34,7 @@ function printCard(product, images) {
 
   let disabled = "";
   if (product.stock == 0) disabled = "disabled";
+  if (userId == "") disabled = "disabled";
 
   let productCard = `
     <div class="col-md-4">
