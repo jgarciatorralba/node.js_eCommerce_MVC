@@ -5,7 +5,6 @@ import path from "path";
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import {} from "dotenv/config.js";
-import bodyParser from "body-parser";
 
 // Import constants from own file 'app-config.js'
 import {
@@ -24,7 +23,7 @@ app.use("/js", express.static(path.resolve(process.cwd(), "node_modules/bootstra
 app.use("/js", express.static(path.resolve(process.cwd(), "node_modules/jquery/dist")));
 
 // Body parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 // EJS
 
