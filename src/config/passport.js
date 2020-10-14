@@ -27,7 +27,7 @@ export default function(passport){
         })
         .catch(error => {
           if (error.message !== undefined && error.message == "No results found in the database"){
-            return done(null, false, { message: "That email is not registered" });
+            return done(null, false, { message: "The email address \"" + email + "\" is not registered" });
           } else {
             console.log(error);
           }
