@@ -16,7 +16,8 @@ export class UserModel {
         if (error) {
           reject(error)
         } else {
-          resolve("New user created successfully!");
+          // resolve("New user created successfully!");
+          resolve("You are now registered and can log in");
         }
       })
     })
