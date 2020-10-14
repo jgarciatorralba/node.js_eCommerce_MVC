@@ -25,7 +25,7 @@ let sessionStore = new MySQLStore(options);
 const app = express();
 
 // Helmet middleware
-app.use(helmet());
+// app.use(helmet());
 
 // Passport config
 import defaultExport from "./src/config/passport.js";
