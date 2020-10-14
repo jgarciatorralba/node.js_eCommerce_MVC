@@ -5,14 +5,31 @@ import path from "path";
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import {} from "dotenv/config.js";
+import helmet from "helmet";
+import flash from "connect-flash";
+import session from "express-session";
+import passport from "passport";
+import MySQLSession from "express-mysql-session";
 
 // Import constants from own file 'app-config.js'
 import {
   APP_PORT,
-  VIEWS
+  VIEWS,
+  options,
+  cookie
 } from "./src/config/app-config.js";
 
+let MySQLStore = MySQLSession(session);
+let sessionStore = new MySQLStore(options);
+
 const app = express();
+
+// Helmet middleware
+app.use(helmet());
+
+// Passport config
+import defaultExport from "./src/config/passport.js";
+defaultExport(passport);
 
 // Allow "public" folder to serve static files
 app.use(express.static('public'));
@@ -24,6 +41,30 @@ app.use("/js", express.static(path.resolve(process.cwd(), "node_modules/jquery/d
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
+
+// Express session
+app.use(session({
+  key: cookie.name,
+  secret: cookie.secret,
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 // EJS
 
