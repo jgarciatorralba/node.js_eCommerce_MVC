@@ -14,6 +14,8 @@ router.post("/register", userController.newUser);
 router.get("/reset", userController.goToReset);
 router.post("/reset", userController.newPassword);
 router.get("/profile", userController.goToProfile);
+router.post("/login", userController.authenticate);
+router.get("/logout", userController.logout);
 
 export {
   router
