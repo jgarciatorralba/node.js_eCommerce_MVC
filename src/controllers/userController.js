@@ -3,6 +3,7 @@ import path from "path";
 
 // Import dependencies
 import bcrypt from "bcrypt";
+import passport from "passport";
 
 // Import models
 import { UserModel } from "../models/UserModel.js";
@@ -39,9 +40,11 @@ export class UserController {
     const hashedPassword = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
     const promise = User.create([fullname, email, hashedPassword]);
     promise.then(result => {
-      res.render(
-        path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: result }
-      );
+      // res.render(
+      //   path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: result }
+      // );
+      req.flash('success_msg', result);
+      res.redirect('/user/login');
     }).catch(error => {
       res.render(
         path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: error, fullname: fullname, email: email, password: password }
@@ -64,8 +67,22 @@ export class UserController {
     }).catch(error => {
       res.render(
         path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user", message: error }
-      );
+      )
     })
+  }
+
+  authenticate(req, res, next){
+    passport.authenticate('local', {
+      successRedirect: '/',
+      failureRedirect: 'login',
+      failureFlash: true
+    })(req, res, next);
+  }
+
+  logout(req, res){
+    req.logout();
+    req.flash('success_msg', 'You are logged out');
+    res.redirect("/user/login");
   }
 }
 
