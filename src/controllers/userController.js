@@ -55,7 +55,7 @@ export class UserController {
     const hashedPassword = await bcrypt.hash(newPassword, parseInt(SALT_ROUNDS));
     const promise = User.getByEmail(email);
     promise.then(results => {
-      return User.updatePassword(results[0], hashedPassword)
+      return User.resetPassword(results[0], hashedPassword)
     }).then(result => {
       res.render(
         path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user", message: result }
@@ -66,6 +66,31 @@ export class UserController {
         path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user", message: error }
       )
     })
+  }
+
+  async updateProfile(req, res){
+    const { profileName, profileEmail, newPassword, confirmPassword } = req.body;
+    let hashedPassword = '';
+    if (newPassword !== confirmPassword) {
+      let error = new Error("Passwords do not match");
+      res.render(
+        path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user, message: error }
+      );
+    } else if(newPassword !== '' && confirmPassword !== '') {
+      hashedPassword = await bcrypt.hash(newPassword, parseInt(SALT_ROUNDS));
+    }
+    const promise = User.update(req.user, [profileName, profileEmail, hashedPassword]);
+    promise
+      .then(result => {
+        res.render(
+          path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user, message: result }
+        );
+      })
+      .catch(error => {
+        res.render(
+          path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user, message: error }
+        );
+      });
   }
 
   authenticate(req, res, next){
