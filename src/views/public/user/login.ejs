@@ -1,6 +1,6 @@
 <div class="container d-flex justify-content-center align-items-center cont-login">
   <div class="text-center w-100">
-    <form class="form-login" autocomplete="off">
+    <form class="form-login" autocomplete="off" method="POST" action="/user/login">
       <a href="/">
         <img class="mb-4" src="/img/logo.png" alt="" width="72" height="72">
       </a>
@@ -10,11 +10,11 @@
       <label for="loginEmail" class="sr-only">
         Email address
       </label>
-      <input type="email" id="loginEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input type="email" id="loginEmail" name="loginEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="loginPassword" class="sr-only">
         Password
       </label>
-      <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+      <input type="password" id="loginPassword" name="loginPassword" class="form-control" placeholder="Password" required>
 
       <%- include ('../partials/messages.ejs') %>
 
