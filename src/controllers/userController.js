@@ -40,9 +40,6 @@ export class UserController {
     const hashedPassword = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
     const promise = User.create([fullname, email, hashedPassword]);
     promise.then(result => {
-      // res.render(
-      //   path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: result }
-      // );
       req.flash('success_msg', result);
       res.redirect('/user/login');
     }).catch(error => {
