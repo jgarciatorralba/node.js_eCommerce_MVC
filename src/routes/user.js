@@ -14,16 +14,12 @@ const Auth = new AuthUtil();
 // Routes
 router.get("/login", Auth.ensureNotAuthenticated, userController.goToLogin);
 router.post("/login", userController.authenticate);
-
-router.get("/register", userController.goToRegister);
+router.get("/register", Auth.ensureNotAuthenticated, userController.goToRegister);
 router.post("/register", userController.newUser);
-
-router.get("/reset", userController.goToReset);
+router.get("/reset", Auth.ensureNotAuthenticated, userController.goToReset);
 router.post("/reset", userController.newPassword);
-
-router.get("/profile", userController.goToProfile);
-
-router.get("/logout", userController.logout);
+router.get("/profile", Auth.ensureAuthenticated, userController.goToProfile);
+router.get("/logout", Auth.ensureAuthenticated, userController.logout);
 
 export {
   router

@@ -16,7 +16,7 @@ router.get("/", publicController.paginatedIndex);
 router.get("/products/:page", publicController.getPageContent);
 router.get("/product/:id", publicController.getProduct);
 router.get("/cart", Auth.ensureAuthenticated, publicController.goToCart);
-router.get("/checkout/:step", publicController.goToCheckout);
+router.get("/checkout/:step", Auth.ensureAuthenticated, publicController.goToCheckout);
 
 export {
   router
