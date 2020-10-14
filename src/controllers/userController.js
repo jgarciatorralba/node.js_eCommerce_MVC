@@ -30,7 +30,7 @@ export class UserController {
   }
 
   goToProfile(req, res){
-    res.render(path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile" });
+    res.render(path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user });
   }
 
   async newUser(req, res){
