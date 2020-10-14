@@ -7,8 +7,12 @@ const router = express.Router();
 import { UserController } from "./../controllers/userController.js";
 const userController = new UserController();
 
+// Import own middleware "auth.js"
+import { AuthUtil } from "../config/auth.js";
+const Auth = new AuthUtil();
+
 // Routes
-router.get("/login", userController.goToLogin);
+router.get("/login", Auth.ensureNotAuthenticated, userController.goToLogin);
 router.get("/register", userController.goToRegister);
 router.post("/register", userController.newUser);
 router.get("/reset", userController.goToReset);
