@@ -139,7 +139,7 @@ export class PublicController {
       const { customer_id, product_id } = req.body
       let result = await Product.createInCart(customer_id, product_id)
       res.send({
-        result: result
+        message: result
       });
     } catch(e) {
       throw e;
@@ -151,7 +151,7 @@ export class PublicController {
       const { customer_id, product_id } = req.body
       let result = await Product.deleteInCart(customer_id, product_id)
       res.send({
-        result: result
+        message: result
       });
     } catch(e) {
       throw e;
