@@ -20,15 +20,29 @@ import {
 export class UserController {
 
   goToLogin(req, res){
-    res.render(path.resolve(VIEWS, "public", "user", "login.ejs"), { title: "Login", layout: "./public/layouts/layout-user" });
+    res.render(path.resolve(VIEWS, "public", "user", "login.ejs"), {
+      title: "Login",
+      layout: "./public/layouts/layout-user",
+      csrfToken: req.csrfToken()
+    });
   }
 
   goToRegister(req, res){
-    res.render(path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user" });
+    res.render(path.resolve(VIEWS, "public", "user", "register.ejs"), {
+      title: "Register",
+      layout: "./public/layouts/layout-user",
+      csrfToken: req.csrfToken()
+    });
   }
 
   goToReset(req, res){
-    res.render(path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user" });
+    res.render(
+      path.resolve(VIEWS, "public", "user", "reset.ejs"), {
+        title: "Reset password",
+        layout: "./public/layouts/layout-user",
+        csrfToken: req.csrfToken()
+      }
+    );
   }
 
   async goToProfile(req, res){
@@ -42,7 +56,8 @@ export class UserController {
       path.resolve(VIEWS, "public", "user", "profile.ejs"), {
         title: "Profile",
         user: user,
-        cart: cart
+        cart: cart,
+        csrfToken: req.csrfToken()
       }
     );
   }
@@ -58,7 +73,15 @@ export class UserController {
       res.redirect('/user/login');
     }).catch(error => {
       res.render(
-        path.resolve(VIEWS, "public", "user", "register.ejs"), { title: "Register", layout: "./public/layouts/layout-user", message: error, fullname: fullname, email: email, password: password }
+        path.resolve(VIEWS, "public", "user", "register.ejs"), {
+          title: "Register",
+          layout: "./public/layouts/layout-user",
+          message: error,
+          fullname: fullname,
+          email: email,
+          password: password,
+          csrfToken: req.csrfToken()
+        }
       );
     })
   }
@@ -72,12 +95,22 @@ export class UserController {
       return User.resetPassword(results[0], hashedPassword)
     }).then(result => {
       res.render(
-        path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user", message: result }
+        path.resolve(VIEWS, "public", "user", "reset.ejs"), {
+          title: "Reset password",
+          layout: "./public/layouts/layout-user",
+          message: result,
+          csrfToken: req.csrfToken()
+        }
       );
       console.log(newPassword)
     }).catch(error => {
       res.render(
-        path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user", message: error }
+        path.resolve(VIEWS, "public", "user", "reset.ejs"), {
+          title: "Reset password",
+          layout: "./public/layouts/layout-user",
+          message: error,
+          csrfToken: req.csrfToken()
+        }
       )
     })
   }
@@ -85,26 +118,45 @@ export class UserController {
   async updateProfile(req, res){
     const { profileName, profileEmail, newPassword, confirmPassword } = req.body;
     let hashedPassword = '';
+    if(newPassword !== '' && confirmPassword !== '') {
+      hashedPassword = await bcrypt.hash(newPassword, parseInt(SALT_ROUNDS));
+    }
     if (newPassword !== confirmPassword) {
       let error = new Error("Passwords do not match");
       res.render(
-        path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user, message: error }
+        path.resolve(VIEWS, "public", "user", "profile.ejs"), {
+          title: "Profile",
+          user: req.user,
+          message: error,
+          csrfToken: req.csrfToken()
+        }
       );
-    } else if(newPassword !== '' && confirmPassword !== '') {
-      hashedPassword = await bcrypt.hash(newPassword, parseInt(SALT_ROUNDS));
+    } else {
+      const promise = User.update(req.user, [profileName, profileEmail, hashedPassword]);
+      promise
+        .then(result => {
+          req.user.fullname = profileName;
+          req.user.email = profileEmail;
+          res.render(
+            path.resolve(VIEWS, "public", "user", "profile.ejs"), {
+              title: "Profile",
+              user: req.user,
+              message: result,
+              csrfToken: req.csrfToken()
+            }
+          );
+        })
+        .catch(error => {
+          res.render(
+            path.resolve(VIEWS, "public", "user", "profile.ejs"), {
+              title: "Profile",
+              user: req.user,
+              message: error,
+              csrfToken: req.csrfToken()
+            }
+          );
+        });
     }
-    const promise = User.update(req.user, [profileName, profileEmail, hashedPassword]);
-    promise
-      .then(result => {
-        res.render(
-          path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user, message: result }
-        );
-      })
-      .catch(error => {
-        res.render(
-          path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user, message: error }
-        );
-      });
   }
 
   authenticate(req, res, next){
