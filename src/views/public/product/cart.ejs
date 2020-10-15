@@ -7,7 +7,7 @@
       <div class="col-1"></div>
 
       <div class="col-10">
-        <div class="row border-bottom">
+        <div class="row border-bottom header-cart">
           <h2 class="h3">Your shopping cart</h2>
         </div>
 
@@ -40,7 +40,16 @@
                   <p class="my-2"><b>Stock: </b><%- product.stock %></p>
                   <p class="my-2"><b>Price: </b><%- product.price %> €</p>
                   <label for="quantity" class="d-inline-block py-2 my-0"><b>Quantity:</b></label>
-                  <input class="form-control d-inline-block w-25" type="number" name="quantity" id="quantity" min="0" max="99" value="<%- item.quantity %>">
+                  <input 
+                    class="form-control d-inline-block w-25 quantity" 
+                    type="number" 
+                    name="quantity" 
+                    min="0" 
+                    max="99" 
+                    value="<%- item.quantity %>"
+                    data-productId="<%- product.id %>" 
+                    data-userId="<%- user.id %>"
+                  >
                 </div>
               </div>
 
@@ -56,6 +65,7 @@
     <div class="row justify-content-center">
       <a 
         type="button" 
+        id="btn-checkout"
         <% if(cart.length == 0) { %>
           class="btn btn-primary mt-3 disabled" 
         <% } else { %>
@@ -68,3 +78,5 @@
     </div>
   </div>
 </div>
+
+<script src="/js/change-quantity.js"></script>
