@@ -49,16 +49,17 @@
         <div class="row border-top mt-3 justify-content-center">
           <button 
             type="button" 
-            <% if(cart.length == 0) { %>
-              class="btn btn-outline-info mt-3 btn-cart" 
-            <% } %>
+            <% let found = false %>
             <% cart.forEach(item => { %>
               <% if(item.product_id == product[0].id) { %>
-                class="btn btn-outline-danger mt-3 btn-cart" 
-              <% } else { %>
-                class="btn btn-outline-info mt-3 btn-cart" 
+                <% found = true %>
               <% } %>
             <% }) %>
+            <% if (found) { %>
+              class="btn btn-outline-danger mt-3 btn-cart" 
+            <% } else { %>
+              class="btn btn-outline-info mt-3 btn-cart" 
+            <% } %>
             data-productId="<%- product[0].id %>"
             <% if(product.stock == 0 || typeof(user) == "undefined") { %>
               disabled
@@ -69,16 +70,17 @@
               data-userId="<%- user.id %>"
             <% } %>
           >
-            <% if(cart.length == 0) { %>
-              Add to cart
-            <% } %>
+            <% found = false %>
             <% cart.forEach(item => { %>
               <% if(item.product_id == product[0].id) { %>
-                Remove
-              <% } else { %>
-                Add to cart
+                <% found = true %>
               <% } %>
             <% }) %>
+            <% if (found) { %>
+              Remove
+            <% } else { %>
+              Add to cart
+            <% } %>
           </button>
         </div>
       </div>
