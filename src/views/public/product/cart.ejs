@@ -45,7 +45,7 @@
                     type="number" 
                     name="quantity" 
                     min="0" 
-                    max="99" 
+                    max="<%- product.stock %>" 
                     value="<%- item.quantity %>"
                     data-productId="<%- product.id %>" 
                     data-userId="<%- user.id %>"
