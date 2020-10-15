@@ -36,7 +36,8 @@ export class PublicController {
           products: products,
           totalPages: totalPages,
           user: user,
-          cart: cart
+          cart: cart,
+          csrfToken: req.csrfToken()
         }
       )
     } catch(e) {
@@ -64,7 +65,7 @@ export class PublicController {
     }
   }
 
-  async getProduct(req, res){
+  async goToProduct(req, res){
     try {
       let product = await Product.getById(req.params.id);
       let images = await Image.getByProductId(req.params.id);
@@ -80,7 +81,8 @@ export class PublicController {
           product: product,
           images: images,
           user: user,
-          cart: cart
+          cart: cart,
+          csrfToken: req.csrfToken()
         }
       );
     } catch(e) {
@@ -106,7 +108,8 @@ export class PublicController {
         user: user,
         cart: cart,
         products: products,
-        images: images
+        images: images,
+        csrfToken: req.csrfToken()
       }
     );
   }
@@ -125,7 +128,8 @@ export class PublicController {
       path.resolve(VIEWS, "public", "product", checkoutView), {
         title: "Checkout",
         user: user,
-        cart: cart
+        cart: cart,
+        csrfToken: req.csrfToken()
       }
     );
   }
