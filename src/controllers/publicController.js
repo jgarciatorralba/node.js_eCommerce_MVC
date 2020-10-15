@@ -23,16 +23,24 @@ export class PublicController {
       let totalPages = Math.ceil(numProducts / pageSize);
       let products = await Product.getPage(1);
       let images = await Image.get();
+      let user = req.user;
+      let cart = [];
+      if (typeof(user) !== "undefined") {
+        cart = await Product.getUserCart(user.id);
+      }
+      
       res.render(
         path.resolve(VIEWS, "public", "homepage"), {
           title: "Homepage",
           images: images,
           products: products,
           totalPages: totalPages,
-          user: req.user
+          user: user,
+          cartItems: cart.length
         }
       )
     } catch(e) {
+      res.status(404).render(path.resolve(VIEWS, "404.ejs"), {title: "Error", layout: "./public/layouts/layout-user"});
       throw e;
     }
   }
@@ -54,12 +62,19 @@ export class PublicController {
     try {
       let product = await Product.getById(req.params.id);
       let images = await Image.getByProductId(req.params.id);
+      let user = req.user;
+      let cart = [];
+      if (typeof(user) !== "undefined") {
+        cart = await Product.getUserCart(user.id);
+      }
+
       res.render(
         path.resolve(VIEWS, "public", "product", "product-details"), {
           title: "Product",
           product: product,
           images: images,
-          user: req.user
+          user: user,
+          cartItems: cart.length
         }
       );
     } catch(e) {
@@ -68,15 +83,38 @@ export class PublicController {
     }
   }
 
-  goToCart(req, res){
-    res.render(path.resolve(VIEWS, "public", "product", "cart.ejs"), { title: "Shopping cart", user: req.user });
+  async goToCart(req, res){
+    let user = req.user;
+    let cart = [];
+    if (typeof(user) !== "undefined") {
+      cart = await Product.getUserCart(user.id);
+    }
+
+    res.render(
+      path.resolve(VIEWS, "public", "product", "cart.ejs"), {
+        title: "Shopping cart",
+        user: user,
+        cartItems: cart.length
+      }
+    );
   }
 
-  goToCheckout(req, res){
+  async goToCheckout(req, res){
     let step = req.params.step;
     let checkoutView = "checkout-" + step + ".ejs";
-    res.render(path.resolve(VIEWS, "public", "product", checkoutView), {
-      title: "Checkout", user: req.user
-    });
+
+    let user = req.user;
+    let cart = [];
+    if (typeof(user) !== "undefined") {
+      cart = await Product.getUserCart(user.id);
+    }
+
+    res.render(
+      path.resolve(VIEWS, "public", "product", checkoutView), {
+        title: "Checkout",
+        user: user,
+        cartItems: cart.length
+      }
+    );
   }
 }

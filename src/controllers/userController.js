@@ -8,6 +8,8 @@ import passport from "passport";
 // Import models
 import { UserModel } from "../models/UserModel.js";
 const User = new UserModel();
+import { ProductModel } from "../models/ProductModel.js";
+const Product = new ProductModel();
 
 // Import constants from own file 'app-config.js'
 import {
@@ -29,8 +31,20 @@ export class UserController {
     res.render(path.resolve(VIEWS, "public", "user", "reset.ejs"), { title: "Reset password", layout: "./public/layouts/layout-user" });
   }
 
-  goToProfile(req, res){
-    res.render(path.resolve(VIEWS, "public", "user", "profile.ejs"), { title: "Profile", user: req.user });
+  async goToProfile(req, res){
+    let user = req.user;
+    let cart = [];
+    if (typeof(user) !== "undefined") {
+      cart = await Product.getUserCart(user.id);
+    }
+
+    res.render(
+      path.resolve(VIEWS, "public", "user", "profile.ejs"), {
+        title: "Profile",
+        user: user,
+        cartItems: cart.length
+      }
+    );
   }
 
   async newUser(req, res){
