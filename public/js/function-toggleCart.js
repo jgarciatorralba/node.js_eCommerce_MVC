@@ -7,6 +7,8 @@ function toggleCart(){
   let customerId = parseInt($(this).attr('data-userid'));
   let productId = parseInt($(this).attr('data-productid'));
 
+  let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
   let action = "";
   if ($(this).text().trim() == "Add to cart") {
     action = "addToCart"
@@ -16,6 +18,8 @@ function toggleCart(){
 
   $.ajax({
     url: '/cart/' + action,
+    xhrFields: { withCredentials: true },
+    headers: {'x-csrf-token': token},
     method: 'POST',
     data: {
       customer_id: customerId,
