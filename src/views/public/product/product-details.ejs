@@ -51,8 +51,13 @@
             type="button" 
             class="btn btn-outline-secondary mt-3" 
             data-product_id="<%- product[0].id %>"
-            <% if(product[0].stock == 0) { %>
+            <% if(product.stock == 0 || typeof(user) == "undefined") { %>
               disabled
+            <% } %>
+            <% if(typeof(user) == "undefined") { %>
+              data-userId=""
+            <% } else { %>
+              data-userId="<%- user.id %>"
             <% } %>
           >
             Add to cart
