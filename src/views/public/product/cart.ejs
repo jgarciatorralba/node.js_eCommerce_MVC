@@ -11,6 +11,14 @@
           <h2 class="h3">Your shopping cart</h2>
         </div>
 
+        <% if(cart.length == 0) { %>
+          <div class="row no-products">
+            <h5 class="h6 mx-auto my-3">
+              You have added no products to the cart yet!
+            </h5>
+          </div>
+        <% } %>
+
         <% cart.forEach(item => { %>
           <% products.forEach(product => { %>
             <% if(product.id == item.product_id) { %>
@@ -48,8 +56,12 @@
     <div class="row justify-content-center">
       <a 
         type="button" 
-        class="btn btn-primary mt-3" 
-        href="/checkout/1"
+        <% if(cart.length == 0) { %>
+          class="btn btn-primary mt-3 disabled" 
+        <% } else { %>
+          class="btn btn-primary mt-3" 
+        <% } %>
+        href="/checkout/1" 
       >
         Checkout and pay!
       </a>
