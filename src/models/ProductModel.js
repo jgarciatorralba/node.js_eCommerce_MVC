@@ -110,4 +110,8 @@ export class ProductModel {
       })
     })
   }
+
+  updateInCart(customer_id, product_id, quantity){
+    
+  }
 }
