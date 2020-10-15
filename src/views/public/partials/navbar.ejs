@@ -14,7 +14,7 @@
     </svg>
     <span id="productCount" class="badge badge-info">
       <% if(typeof(user) !== "undefined") { %>
-        <%- cartItems %>
+        <%- cart.length %>
       <% } else { %>
         0
       <% } %>

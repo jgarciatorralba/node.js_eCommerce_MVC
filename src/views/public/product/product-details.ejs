@@ -49,8 +49,17 @@
         <div class="row border-top mt-3 justify-content-center">
           <button 
             type="button" 
-            class="btn btn-outline-secondary mt-3" 
-            data-product_id="<%- product[0].id %>"
+            <% if(cart.length == 0) { %>
+              class="btn btn-outline-info mt-3 btn-cart" 
+            <% } %>
+            <% cart.forEach(item => { %>
+              <% if(item.product_id == product[0].id) { %>
+                class="btn btn-outline-danger mt-3 btn-cart" 
+              <% } else { %>
+                class="btn btn-outline-info mt-3 btn-cart" 
+              <% } %>
+            <% }) %>
+            data-productId="<%- product[0].id %>"
             <% if(product.stock == 0 || typeof(user) == "undefined") { %>
               disabled
             <% } %>
@@ -60,7 +69,16 @@
               data-userId="<%- user.id %>"
             <% } %>
           >
-            Add to cart
+            <% if(cart.length == 0) { %>
+              Add to cart
+            <% } %>
+            <% cart.forEach(item => { %>
+              <% if(item.product_id == product[0].id) { %>
+                Remove
+              <% } else { %>
+                Add to cart
+              <% } %>
+            <% }) %>
           </button>
         </div>
       </div>
@@ -69,3 +87,5 @@
     </div>
   </div>
 </div>
+
+<script src="/js/toggleCart.js"></script>
