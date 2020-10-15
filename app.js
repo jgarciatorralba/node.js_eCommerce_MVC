@@ -10,6 +10,7 @@ import flash from "connect-flash";
 import session from "express-session";
 import passport from "passport";
 import MySQLSession from "express-mysql-session";
+import cookieParser from "cookie-parser";
 
 // Import constants from own file 'app-config.js'
 import {
@@ -70,6 +71,9 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   next();
 });
+
+// Cookie parser
+app.use(cookieParser());
 
 // EJS
 
