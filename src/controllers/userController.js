@@ -42,7 +42,7 @@ export class UserController {
       path.resolve(VIEWS, "public", "user", "profile.ejs"), {
         title: "Profile",
         user: user,
-        cartItems: cart.length
+        cart: cart
       }
     );
   }
