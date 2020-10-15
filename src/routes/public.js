@@ -18,7 +18,7 @@ const Auth = new AuthUtil();
 // Routes
 router.get("/", publicController.paginatedIndex);
 router.get("/products/:page", publicController.getPageContent);
-router.get("/product/:id", publicController.getProduct);
+router.get("/product/:id", publicController.goToProduct);
 router.get("/cart", Auth.ensureAuthenticated, publicController.goToCart);
 router.post("/cart/addToCart", Auth.ensureAuthenticated, publicController.addToCart);
 router.post("/cart/removeFromCart", Auth.ensureAuthenticated, publicController.removeFromCart);
