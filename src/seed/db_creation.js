@@ -4,7 +4,7 @@ import fs from "fs";
 
 // Import db connection creation from own file 'app-config.js'
 import {
-  con
+  con_createDb
 } from "./../config/app-config.js";
 
 // Alternative to '__dirname' when using ES6 modules (import)
@@ -13,7 +13,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Connect
-con.connect((err) => {
+con_createDb.connect((err) => {
   if (err) {
     throw err;
   }
@@ -37,7 +37,7 @@ con.connect((err) => {
         return;
       } else {
         let promise = new Promise((resolve, reject) => {
-          con.query(sqlQuery, (err, res) => {
+          con_createDb.query(sqlQuery, (err, res) => {
             if (err) throw err;
             resolve(res);
           })
@@ -55,7 +55,7 @@ con.connect((err) => {
         console.log("Database created successfully!");
         
         // Close connection
-        con.end((err) => {
+        con_createDb.end((err) => {
           if (err) console.log(err);
           console.log("Connection ended...");
         });

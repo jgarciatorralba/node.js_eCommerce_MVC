@@ -32,6 +32,13 @@ const con = mysql.createConnection({
   database: DB_DATABASE
 });
 
+const con_createDb = mysql.createConnection({
+  host: DB_HOST,
+  port: DB_PORT,
+  user: DB_USER,
+  password: DB_PASSWORD
+});
+
 // MySQL Session
 let options = {
   host: DB_HOST,
@@ -53,6 +60,7 @@ export {
   VIEWS,
   SALT_ROUNDS,
   con,
+  con_createDb,
   options,
   cookie
 };
