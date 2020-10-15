@@ -11,35 +11,35 @@
           <h2 class="h3">Your shopping cart</h2>
         </div>
 
-        <div class="row justify-content-center product border-bottom py-3">
-          <div class="col-md-4">
-            <img class="d-block w-100 border" src="https://i.ibb.co/ChtcCkQ/prod-1-1.jpg" alt="Product image">
-          </div>
+        <% cart.forEach(item => { %>
+          <% products.forEach(product => { %>
+            <% if(product.id == item.product_id) { %>
+              <% let productImages = [] %>
+              <% images.forEach(image => { %>
+                <% if(image.product_id == product.id){ %>
+                  <% productImages.push(image) %>
+                <% } %>
+              <% }) %>
 
-          <div class="col-md-6">
-            <h3 class="h4 my-3">4ever Gold</h3>
-            <p class="my-2">A ring which is actually 4!</p>
-            <p class="my-2"><b>Stock:</b> 100 units</p>
-            <p class="my-2"><b>Price:</b> 29.95 €</p>
-            <label for="quantity" class="d-inline-block py-2 my-0"><b>Quantity:</b></label>
-            <input class="form-control d-inline-block w-25" type="number" name="quantity" id="quantity" min="0" max="99" value="1">
-          </div>
-        </div>
+              <div class="row justify-content-center product border-bottom py-3">
+                <div class="col-md-4">
+                  <img class="d-block w-100 border" src="<%- productImages[0].path %>" alt="Product image">
+                </div>
 
-        <div class="row justify-content-center product border-bottom py-3">
-          <div class="col-md-4">
-            <img class="d-block w-100 border" src="https://i.ibb.co/ChtcCkQ/prod-1-1.jpg" alt="Product image">
-          </div>
+                <div class="col-md-6">
+                  <h3 class="h4 my-3"><%- product.title %></h3>
+                  <p class="my-2"><%- product.description %></p>
+                  <p class="my-2"><b>Stock: </b><%- product.stock %></p>
+                  <p class="my-2"><b>Price: </b><%- product.price %> €</p>
+                  <label for="quantity" class="d-inline-block py-2 my-0"><b>Quantity:</b></label>
+                  <input class="form-control d-inline-block w-25" type="number" name="quantity" id="quantity" min="0" max="99" value="<%- item.quantity %>">
+                </div>
+              </div>
 
-          <div class="col-md-6">
-            <h3 class="h4 my-3">4ever Gold</h3>
-            <p class="my-2">A ring which is actually 4!</p>
-            <p class="my-2"><b>Stock:</b> 100 units</p>
-            <p class="my-2"><b>Price:</b> 29.95 €</p>
-            <label for="quantity" class="d-inline-block py-2 my-0"><b>Quantity:</b></label>
-            <input class="form-control d-inline-block" type="number" name="quantity" id="quantity" min="0" max="99" value="1">
-          </div>
-        </div>
+            <% } %>
+          <% }) %>
+        <% }) %>
+
       </div>
 
       <div class="col-1"></div>
