@@ -49,9 +49,15 @@ export class PublicController {
     try{
       let products = await Product.getPage(req.params.page);
       let images = await Image.get();
+      let user = req.user;
+      let cart = [];
+      if (typeof(user) !== "undefined") {
+        cart = await Product.getUserCart(user.id);
+      }
       res.send({
         products: products,
-        images: images
+        images: images,
+        cart: cart
       });
     } catch(e) {
       throw e;
