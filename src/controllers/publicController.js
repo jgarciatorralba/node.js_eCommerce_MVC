@@ -92,15 +92,21 @@ export class PublicController {
   async goToCart(req, res){
     let user = req.user;
     let cart = [];
+    let products = [];
+    let images = [];
     if (typeof(user) !== "undefined") {
       cart = await Product.getUserCart(user.id);
+      products = await Product.get();
+      images = await Image.get();
     }
 
     res.render(
       path.resolve(VIEWS, "public", "product", "cart.ejs"), {
         title: "Shopping cart",
         user: user,
-        cart: cart
+        cart: cart,
+        products: products,
+        images: images
       }
     );
   }
