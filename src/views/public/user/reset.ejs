@@ -1,6 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center cont-reset">
   <div class="text-center w-100">
     <form class="form-reset" autocomplete="off" method="POST" action="/user/reset">
+      <input type="hidden" name="_csrf" value="<%- csrfToken %>">
       <a href="/">
         <img class="mb-4" src="/img/logo.png" alt="" width="72" height="72">
       </a>

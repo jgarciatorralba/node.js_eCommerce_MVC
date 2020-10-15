@@ -13,6 +13,7 @@
         <%- include ('../partials/messages.ejs') %>
 
         <form action="/user/profile" method="POST">
+          <input type="hidden" name="_csrf" value="<%- csrfToken %>">
           <div class="form-group mb-2">
             <label for="profileName">Full name</label>
             <input 
