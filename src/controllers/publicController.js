@@ -36,7 +36,7 @@ export class PublicController {
           products: products,
           totalPages: totalPages,
           user: user,
-          cartItems: cart.length
+          cart: cart
         }
       )
     } catch(e) {
@@ -74,7 +74,7 @@ export class PublicController {
           product: product,
           images: images,
           user: user,
-          cartItems: cart.length
+          cart: cart
         }
       );
     } catch(e) {
@@ -94,7 +94,7 @@ export class PublicController {
       path.resolve(VIEWS, "public", "product", "cart.ejs"), {
         title: "Shopping cart",
         user: user,
-        cartItems: cart.length
+        cart: cart
       }
     );
   }
@@ -113,8 +113,32 @@ export class PublicController {
       path.resolve(VIEWS, "public", "product", checkoutView), {
         title: "Checkout",
         user: user,
-        cartItems: cart.length
+        cart: cart
       }
     );
+  }
+
+  async addToCart(req, res){
+    try{
+      const { customer_id, product_id } = req.body
+      let result = await Product.createInCart(customer_id, product_id)
+      res.send({
+        result: result
+      });
+    } catch(e) {
+      throw e;
+    }
+  }
+
+  async removeFromCart(req, res){
+    try{
+      const { customer_id, product_id } = req.body
+      let result = await Product.deleteInCart(customer_id, product_id)
+      res.send({
+        result: result
+      });
+    } catch(e) {
+      throw e;
+    }
   }
 }
