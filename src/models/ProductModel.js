@@ -88,4 +88,26 @@ export class ProductModel {
       })
     })
   }
+
+  createInCart(customer_id, product_id){
+    return new Promise((resolve, reject) => {
+      this.con.query("INSERT INTO carts (customer_id, product_id) VALUES (?, ?)", [customer_id, product_id], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve("Product added to customer cart")
+      })
+    })
+  }
+
+  deleteInCart(customer_id, product_id){
+    return new Promise((resolve, reject) => {
+      this.con.query("DELETE FROM carts WHERE customer_id = ? AND product_id = ?", [customer_id, product_id], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve("Product removed from customer cart")
+      })
+    })
+  }
 }
