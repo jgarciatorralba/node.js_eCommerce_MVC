@@ -1,0 +1,1 @@
+$('.btn-cart').on('click', toggleCart);
