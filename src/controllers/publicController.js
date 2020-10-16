@@ -143,6 +143,9 @@ export class PublicController {
       });
     } catch(e) {
       throw e;
+      res.send({
+        message: e.message
+      });
     }
   }
 
@@ -155,6 +158,9 @@ export class PublicController {
       });
     } catch(e) {
       throw e;
+      res.send({
+        message: e.message
+      });
     }
   }
 
