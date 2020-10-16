@@ -27,12 +27,12 @@ function toggleCart(){
     }
   }).done(response => {
     let productCount = parseInt($('#productCount').text());
-    if (response.message == "Product added to customer cart") {
+    if (response.messageCart == "Product added to customer cart") {
       $('#productCount').text(productCount + 1);
       $(this).text('Remove');
       $(this).removeClass('btn-outline-info');
       $(this).addClass('btn-outline-danger');
-    } else if (response.message == "Product removed from customer cart") {
+    } else if (response.messageCart == "Product removed from customer cart") {
       $('#productCount').text(productCount - 1);
       $(this).text('Add to cart');
       $(this).removeClass('btn-outline-danger');
