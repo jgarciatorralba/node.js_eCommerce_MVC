@@ -307,7 +307,37 @@ export class PublicController {
     }
   }
 
-  async validateTerms(req, res){
-    
+  async confirmOrder(req, res){
+    const {
+      customer_id,
+      total_order,
+      products_stringified
+    } = req.body
+
+    const products = JSON.parse(products_stringified);
+
+    let promises = [];
+    let createOrderPromise = Product.createOrder(customer_id, total_order)
+    createOrderPromise
+      .then(orderId => {
+        products.forEach(product => {
+          let promise = Product.createOrderItem(orderId, product.id, product.price, product.quantity)
+          promises.push(promise)
+        })
+      })
+      .catch(e => {
+        res.send(e.message)
+      })
+
+    Promise.all(promises)
+      .then(() => {
+        return Product.deleteUserCart(customer_id)
+      })
+      .then(result => {
+        res.send(result)
+      })
+      .catch(error => {
+        res.send(error.message)
+      })
   }
 }
