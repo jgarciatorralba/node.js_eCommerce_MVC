@@ -212,6 +212,7 @@ export class PublicController {
           country: country,
           phoneNumber: phoneNumber,
           message: error,
+          user: req.user,
           csrfToken: req.csrfToken()
         }
       );
@@ -230,6 +231,7 @@ export class PublicController {
               zipCode: zipCode,
               country: country,
               phoneNumber: phoneNumber,
+              user: req.user,
               message: error,
               csrfToken: req.csrfToken()
             }
@@ -239,7 +241,64 @@ export class PublicController {
   }
 
   async validatePayment(req, res){
-    
+    let {
+      ccNumber,
+      cvvNumber
+    } = req.body
+
+    // Form validation
+    let validated = true;
+
+    let ccNumberCurated = ccNumber.replace(/-/g, "")
+    ccNumberCurated = ccNumberCurated.replace(/ /g, "")
+    let cvvNumberCurated = cvvNumber.replace(/-/g, "")
+    cvvNumberCurated = cvvNumberCurated.replace(/ /g, "")
+
+    let regExVisa = /^4[0-9]{12}(?:[0-9]{3})?$/;
+    let regExMastercard = /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/;
+    let regExCVV = /^([0-9]{3,4})$/;
+
+    let error;
+    if (!regExCVV.test(cvvNumberCurated)){
+      validated = false
+      error = new Error("Invalid CVV number")
+    }
+    if(!regExVisa.test(ccNumberCurated) && !regExMastercard.test(ccNumberCurated)){
+      validated = false
+      error = new Error("Invalid Credit Card number")
+    }
+
+    if(!validated){
+      res.render(
+        path.resolve(VIEWS, "public", "product", "checkout-2.ejs"), {
+          title: "Checkout",
+          ccNumber: ccNumber,
+          cvvNumber: cvvNumber,
+          message: error,
+          user: req.user,
+          csrfToken: req.csrfToken()
+        }
+      );
+    } else {
+      const promise = User.addPaymentDetails(req.user, [ccNumber, cvvNumber]);
+      promise
+        .then(result => {
+          req.flash('success_msg', result)
+          res.redirect('/checkout/3')
+        })
+        .catch(error => {
+          res.render(
+            path.resolve(VIEWS, "public", "product", "checkout-2.ejs"), {
+              title: "Checkout",
+              ccNumber: ccNumber,
+              cvvNumber: cvvNumber,
+              message: error,
+              user: req.user,
+              csrfToken: req.csrfToken()
+            }
+          );
+        })
+    }
   }
 
   async validateTerms(req, res){
