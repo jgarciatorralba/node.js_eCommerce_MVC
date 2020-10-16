@@ -142,10 +142,10 @@ export class PublicController {
         message: result
       });
     } catch(e) {
-      throw e;
       res.send({
         message: e.message
       });
+      throw e;
     }
   }
 
@@ -157,14 +157,25 @@ export class PublicController {
         message: result
       });
     } catch(e) {
-      throw e;
       res.send({
         message: e.message
       });
+      throw e;
     }
   }
 
   async updateCart(req, res){
-    
+    try{
+      const { customer_id, product_id, new_quantity } = req.body
+      let result = await Product.updateInCart(customer_id, product_id, new_quantity)
+      res.send({
+        message: result
+      });
+    } catch(e) {
+      res.send({
+        message: e.message
+      });
+      throw e;
+    }
   }
 }
