@@ -78,6 +78,7 @@ export class ProductModel {
     })
   }
 
+  // Get the products in the cart for a given user
   getUserCart(id){
     return new Promise((resolve, reject) => {
       this.con.query("SELECT * FROM carts WHERE customer_id = ?", [id], (error, result) => {
@@ -89,6 +90,19 @@ export class ProductModel {
     })
   }
 
+  // Get an item from the cart
+  getCartItem(customer_id, product_id){
+    return new Promise((resolve, reject) => {
+      this.con.query("SELECT * FROM carts WHERE customer_id = ? AND product_id = ?", [customer_id, product_id], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve(result)
+      })
+    })
+  }
+
+  // Create new item in the cart
   createInCart(customer_id, product_id){
     return new Promise((resolve, reject) => {
       this.con.query("INSERT INTO carts (customer_id, product_id) VALUES (?, ?)", [customer_id, product_id], (error, result) => {
@@ -100,6 +114,7 @@ export class ProductModel {
     })
   }
 
+  // Delete an item from the cart
   deleteInCart(customer_id, product_id){
     return new Promise((resolve, reject) => {
       this.con.query("DELETE FROM carts WHERE customer_id = ? AND product_id = ?", [customer_id, product_id], (error, result) => {
@@ -111,6 +126,7 @@ export class ProductModel {
     })
   }
 
+  // Update quantity in an item from the cart
   updateInCart(customer_id, product_id, quantity){
     return new Promise((resolve, reject) => {
       this.con.query("UPDATE carts SET quantity = ? WHERE customer_id = ? AND product_id = ?", [quantity, customer_id, product_id], (error, result) => {
@@ -118,6 +134,26 @@ export class ProductModel {
           reject(new Error("Database error"))
         }
         resolve("Product updated in customer cart")
+      })
+    })
+  }
+
+  // Update available stock of a product
+  async updateStock(product_id, quantity){
+    let products = await this.getById(product_id);
+    let newStock = products[0].stock + quantity;
+
+    if(newStock < 0) {
+      let error = new Error("Maximum stock reached");
+      return Promise.reject(error);
+    }
+
+    return new Promise((resolve, reject) => {
+      this.con.query("UPDATE products SET stock = ? WHERE id = ?", [newStock, product_id], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve("Stock updated in product")
       })
     })
   }
