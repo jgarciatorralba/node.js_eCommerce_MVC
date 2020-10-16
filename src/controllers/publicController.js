@@ -137,9 +137,11 @@ export class PublicController {
   async addToCart(req, res){
     try{
       const { customer_id, product_id } = req.body
-      let result = await Product.createInCart(customer_id, product_id)
+      let resultStock = await Product.updateStock(product_id, -1)
+      let resultCart = await Product.createInCart(customer_id, product_id)
       res.send({
-        message: result
+        messageStock: resultStock,
+        messageCart: resultCart
       });
     } catch(e) {
       res.send({
@@ -152,9 +154,12 @@ export class PublicController {
   async removeFromCart(req, res){
     try{
       const { customer_id, product_id } = req.body
-      let result = await Product.deleteInCart(customer_id, product_id)
+      let cartItems = await Product.getCartItem(customer_id, product_id)
+      let resultStock = await Product.updateStock(product_id, cartItems[0].quantity)
+      let resultCart = await Product.deleteInCart(customer_id, product_id)
       res.send({
-        message: result
+        messageStock: resultStock,
+        messageCart: resultCart
       });
     } catch(e) {
       res.send({
@@ -167,9 +172,14 @@ export class PublicController {
   async updateCart(req, res){
     try{
       const { customer_id, product_id, new_quantity } = req.body
-      let result = await Product.updateInCart(customer_id, product_id, new_quantity)
+      let cartItems = await Product.getCartItem(customer_id, product_id)
+      let difference = cartItems[0].quantity - new_quantity
+      let resultStock = await Product.updateStock(product_id, difference);
+      let resultCart = await Product.updateInCart(customer_id, product_id, new_quantity)
+
       res.send({
-        message: result
+        messageStock: resultStock,
+        messageCart: resultCart
       });
     } catch(e) {
       res.send({
