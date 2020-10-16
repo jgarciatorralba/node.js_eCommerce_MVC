@@ -24,6 +24,8 @@ CREATE TABLE customers(
   zipCode VARCHAR(255),
   country VARCHAR(255),
   phone VARCHAR(255),
+  ccNumber VARCHAR(255),
+  cvvNumber VARCHAR(255),
 CONSTRAINT PK_CUSTOMER PRIMARY KEY(id)
 );
 
