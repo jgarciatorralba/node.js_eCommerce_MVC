@@ -12,16 +12,11 @@
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <form action="" method="POST">
-          <div class="form-group mb-2">
-            <label for="receiver">Receiver / Send to:</label>
-            <input 
-              class="form-control" 
-              type="text" 
-              name="receiver" 
-              id="receiver"
-            >
-          </div>
+        
+        <%- include ('../partials/messages.ejs') %>
+
+        <form action="/checkout/1" method="POST">
+          <input type="hidden" name="_csrf" value="<%- csrfToken %>">
 
           <div class="form-group mb-2">
             <label for="address">Shipping Address:</label>
@@ -29,7 +24,11 @@
               class="form-control" 
               type="text" 
               name="address" 
-              id="address"
+              id="address" 
+              required 
+              <% if(typeof(address) !== "undefined") { %>
+                value="<%- address %>"
+              <% } %>
             >
           </div>
 
@@ -39,7 +38,11 @@
               class="form-control" 
               type="text" 
               name="zipCode" 
-              id="zipCode"
+              id="zipCode" 
+              required 
+              <% if(typeof(zipCode) !== "undefined") { %>
+                value="<%- zipCode %>"
+              <% } %>
             >
           </div>
 
@@ -49,7 +52,12 @@
               class="form-control" 
               type="text" 
               name="country" 
-              id="country">
+              id="country" 
+              required 
+              <% if(typeof(country) !== "undefined") { %>
+                value="<%- country %>"
+              <% } %>
+            >
           </div>
 
           <div class="form-group mb-2">
@@ -58,7 +66,11 @@
               class="form-control" 
               type="text" 
               name="phoneNumber" 
-              id="phoneNumber"
+              id="phoneNumber" 
+              required 
+              <% if(typeof(phoneNumber) !== "undefined") { %>
+                value="<%- phoneNumber %>"
+              <% } %>
             >
           </div>
 
