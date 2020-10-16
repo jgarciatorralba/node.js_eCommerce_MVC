@@ -85,4 +85,40 @@ export class UserModel {
       }
     })
   }
+
+  addShippingDetails(customer, array){
+    return new Promise((resolve, reject) => {
+      this.con.query("UPDATE customers SET address = ?, zipCode = ?, country = ?, phone = ? WHERE id = ?", [array[0], array[1], array[2], array[3], customer.id], (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve("Shipping details updated successfully");
+        }
+      })
+    })
+  }
+
+  addPaymentDetails(customer, array){
+    return new Promise((resolve, reject) => {
+      this.con.query("UPDATE customers SET ccNumber = ?, cvvNumber = ? WHERE id = ?", [array[0], array[1], customer.id], (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve("Payment details updated successfully");
+        }
+      })
+    })
+  }
+
+  addAcceptedTerms(customer, datetime){
+    return new Promise((resolve, reject) => {
+      this.con.query("UPDATE customers SET termsAcceptedOn = ? WHERE id = ?", [datetime, customer.id], (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve("Terms & Conditions acceptance updated successfully");
+        }
+      })
+    })
+  }
 }
