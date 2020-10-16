@@ -126,6 +126,18 @@ export class ProductModel {
     })
   }
 
+  // Delete all items in a user's cart
+  deleteUserCart(customer_id){
+    return new Promise((resolve, reject) => {
+      this.con.query("DELETE FROM carts WHERE customer_id = ?", [customer_id], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve("All items removed from the cart")
+      })
+    })
+  }
+
   // Update quantity in an item from the cart
   updateInCart(customer_id, product_id, quantity){
     return new Promise((resolve, reject) => {
@@ -154,6 +166,30 @@ export class ProductModel {
           reject(new Error("Database error"))
         }
         resolve("Stock updated in product")
+      })
+    })
+  }
+
+  // Create new order
+  createOrder(customer_id, total_order){
+    return new Promise((resolve, reject) => {
+      this.con.query("INSERT INTO orders (customer_id, total) VALUES (?, ?)", [customer_id, total_order], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve(result.insertId)
+      })
+    })
+  }
+
+  // Create new order item
+  createOrderItem(order_id, product_id, product_price, quantity){
+    return new Promise((resolve, reject) => {
+      this.con.query("INSERT INTO orders_products (order_id, product_id, product_price, quantity) VALUES (?, ?, ?, ?)", [order_id, product_id, product_price, quantity], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve("Order item created successfully")
       })
     })
   }
