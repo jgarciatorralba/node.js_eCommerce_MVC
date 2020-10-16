@@ -72,10 +72,10 @@
                         <b>Product: </b><span><%- product.title %></span>
                       </p>
                       <p class="my-2 ml-2">
-                        <b>Price: </b><span><%- product.price %></span> €
+                        <b>Price: </b><span class="product-price" data-productId="<%- product.id %>"><%- product.price %></span> €
                       </p>
                       <p class="my-2 ml-2">
-                        <b>Quantity: </b><span><%- item.quantity %></span> units
+                        <b>Quantity: </b><span class="product-quantity"><%- item.quantity %></span> units
                       </p>
                       <p class="my-2 ml-2">
                         <% let totalProduct = (item.quantity * product.price) %>
@@ -103,28 +103,36 @@
                   <% } %>
                 <% }) %>
               <% }) %>
-              <span><%- totalOrder.toFixed(2) %></span> €
+              <span id="totalOrder"><%- totalOrder.toFixed(2) %></span> €
             </h5>
           </div>
         </div>
 
         <div class="row">
           <div class="col-12">
-            <form action="/checkout/3" method="POST" class="mt-3">
-              <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-              
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="checkbox" value="" id="terms">
-                <label class="form-check-label" for="terms">
-                  I accept the <u>Terms and Conditions</u>
-                </label>
-              </div>
+            <div id="alert-noTerms" class="alert alert-warning fade show mt-1" style="display: none">
+              <strong>Warning! </strong><span></span>
+            </div>
+            <div id="alert-ajax" class="alert alert-danger fade show mt-1" style="display: none">
+              <strong>Error! </strong><span></span>
+            </div>
 
-              <a href="/checkout/2" class="btn btn-secondary mt-2">Back</a>
-              <button type="submit" class="btn btn-primary mt-2">
-                Confirm
-              </button>
-            </form>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" value="" id="terms">
+              <label class="form-check-label" for="terms">
+                I accept the <u>Terms and Conditions</u>
+              </label>
+            </div>
+
+            <a href="/checkout/2" class="btn btn-secondary mt-2">Back</a>
+            <button 
+              type="submit" 
+              class="btn btn-primary mt-2" 
+              id="btn-confirmOrder" 
+              data-userId="<%- user.id %>"
+            >
+              Confirm
+            </button>
           </div>
         </div>
 
@@ -133,3 +141,5 @@
     </div>
   </div>
 </div>
+
+<script src="/js/confirm-order.js"></script>
