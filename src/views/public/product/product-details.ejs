@@ -41,8 +41,10 @@
           <div class="col-md-5">
             <h3 class="h4 my-3"><%- product[0].title %></h3>
             <p class="my-2"><%- product[0].description %></p>
-            <p class="my-2"><b>Stock:</b> <%- product[0].stock %> units</p>
-            <p class="my-2"><b>Price:</b> <%- product[0].price %> €</p>
+            <p class="my-2">
+              <b>Stock: </b><span id="product-detail-stock"><%- product[0].stock %></span> units
+            </p>
+            <p class="my-2"><b>Price: </b><%- product[0].price %> €</p>
           </div>
         </div>
 
