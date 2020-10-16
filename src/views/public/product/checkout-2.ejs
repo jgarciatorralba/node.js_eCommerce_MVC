@@ -15,15 +15,41 @@
         
         <%- include ('../partials/messages.ejs') %>
         
-        <form action="">
+        <form action="/checkout/2" method="POST">
+          <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+          
           <div class="form-group mb-2">
             <label for="ccNumber">Credit Card Number:</label>
-            <input class="form-control" type="text" name="ccNumber" id="ccNumber">
+            <input 
+              class="form-control" 
+              type="text" 
+              name="ccNumber" 
+              id="ccNumber" 
+              required 
+              <% if(typeof(ccNumber) !== "undefined") { %>
+                value="<%- ccNumber %>"
+              <% } %>
+              <% if(user.ccNumber !== null) { %>
+                value="<%- user.ccNumber %>"
+              <% } %>
+            >
           </div>
 
           <div class="form-group mb-2">
             <label for="cvvNumber">CVV Number:</label>
-            <input class="form-control" type="text" name="cvvNumber" id="cvvNumber">
+            <input 
+              class="form-control" 
+              type="text" 
+              name="cvvNumber" 
+              id="cvvNumber" 
+              required 
+              <% if(typeof(cvvNumber) !== "undefined") { %>
+                value="<%- cvvNumber %>"
+              <% } %>
+              <% if(user.cvvNumber !== null) { %>
+                value="<%- user.cvvNumber %>"
+              <% } %>
+            >
           </div>
 
           <a href="/checkout/1" class="btn btn-secondary">Back</a>
