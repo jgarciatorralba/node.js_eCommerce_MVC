@@ -29,6 +29,9 @@
               <% if(typeof(address) !== "undefined") { %>
                 value="<%- address %>"
               <% } %>
+              <% if(user.address !== null) { %>
+                value="<%- user.address %>"
+              <% } %>
             >
           </div>
 
@@ -42,6 +45,9 @@
               required 
               <% if(typeof(zipCode) !== "undefined") { %>
                 value="<%- zipCode %>"
+              <% } %>
+              <% if(user.zipCode !== null) { %>
+                value="<%- user.zipCode %>"
               <% } %>
             >
           </div>
@@ -57,6 +63,9 @@
               <% if(typeof(country) !== "undefined") { %>
                 value="<%- country %>"
               <% } %>
+              <% if(user.country !== null) { %>
+                value="<%- user.country %>"
+              <% } %>
             >
           </div>
 
@@ -70,6 +79,9 @@
               required 
               <% if(typeof(phoneNumber) !== "undefined") { %>
                 value="<%- phoneNumber %>"
+              <% } %>
+              <% if(user.phone !== null) { %>
+                value="<%- user.phone %>"
               <% } %>
             >
           </div>
