@@ -6,7 +6,7 @@ $('.quantity').on('change', function() {
 
   let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-  if (newQty == 0) {
+  if (newQty <= 0) {
     // Remove item from cart
     action = "removeFromCart"
   } else {
@@ -25,13 +25,16 @@ $('.quantity').on('change', function() {
       new_quantity: newQty
     }
   }).done(response => {
-    if (response.message == "Product updated in customer cart") {
-      console.log(response.message);
-    } else if (response.message == "Database error") {
+    if (response.message !== undefined) {
       $('.alert-danger span').text(response.message);
-      $('.alert-danger').fadeIn(800);
+      $('.alert-danger').fadeIn(800).delay(2000).fadeOut(800);
       $('.alert-danger').removeClass('d-none');
-    } else if (response.message == "Product removed from customer cart") {
+    }
+
+    if (response.messageCart == "Product updated in customer cart") {
+      console.log(response.messageCart);
+    } else if (response.messageCart == "Product removed from customer cart") {
+      console.log(response.messageCart);
       let productCount = parseInt($('#productCount').text());
       $('#productCount').text(productCount - 1);
       $(this).parent().parent().remove();
@@ -44,8 +47,8 @@ $('.quantity').on('change', function() {
           </div>
         `;
         $('.header-cart').after(paragraph);
+        $('#btn-checkout').addClass('disabled');
       }
-      $('#btn-checkout').addClass('disabled');
     }
   });
 })
