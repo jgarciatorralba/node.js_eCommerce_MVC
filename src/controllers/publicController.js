@@ -176,8 +176,12 @@ export class PublicController {
 
     let user = req.user;
     let cart = [];
+    let products = [];
+    let images = [];
     if (typeof(user) !== "undefined") {
       cart = await Product.getUserCart(user.id);
+      products = await Product.get();
+      images = await Image.get();
     }
 
     res.render(
@@ -185,6 +189,8 @@ export class PublicController {
         title: "Checkout",
         user: user,
         cart: cart,
+        products: products,
+        images: images,
         csrfToken: req.csrfToken()
       }
     );
