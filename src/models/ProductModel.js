@@ -112,6 +112,13 @@ export class ProductModel {
   }
 
   updateInCart(customer_id, product_id, quantity){
-    
+    return new Promise((resolve, reject) => {
+      this.con.query("UPDATE carts SET quantity = ? WHERE customer_id = ? AND product_id = ?", [quantity, customer_id, product_id], (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve("Product updated in customer cart")
+      })
+    })
   }
 }
