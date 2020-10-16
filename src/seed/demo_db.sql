@@ -57,7 +57,7 @@ CONSTRAINT FK_PRODUCT_CART FOREIGN KEY(product_id) REFERENCES PRODUCTS(id) ON DE
 
 CREATE TABLE orders(
   id SMALLINT AUTO_INCREMENT,
-  order_date DATETIME NOT NULL,
+  order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
   customer_id SMALLINT NOT NULL,
   total REAL NOT NULL,
 CONSTRAINT PK_ORDER PRIMARY KEY(id),
@@ -70,7 +70,7 @@ CREATE TABLE orders_products(
   product_price REAL NOT NULL,
   quantity SMALLINT NOT NULL,
 CONSTRAINT PK_ORDER_PRODUCT PRIMARY KEY(order_id, product_id),
-CONSTRAINT FK_ORDER_PRODUCT FOREIGN KEY(order_id) REFERENCES ORDERS(id)
+CONSTRAINT FK_ORDER_PRODUCT FOREIGN KEY(order_id) REFERENCES ORDERS(id) ON DELETE CASCADE
 );
 
 -- Insert data;
@@ -79,10 +79,10 @@ INSERT INTO USERS VALUES(1, "Jorge García", "$2b$10$DritACz1hhp5bHfkrbGjL.lRuXz
 INSERT INTO USERS VALUES(2, "John Doe", "$2b$10$DritACz1hhp5bHfkrbGjL.lRuXzYkHD2rhFABwuVqQ2C70yGVaZl.", "johndoe@mail.com", "employee", "https://ibb.co/r2Gbw6d");
 
 -- Products;
-INSERT INTO PRODUCTS VALUES(1, "4ever Gold", "A ring which is actually 4!", 29.95, 100);
+INSERT INTO PRODUCTS VALUES(1, "4ever Gold", "A ring which is actually 4!", 29.95, 10);
 INSERT INTO PRODUCTS VALUES(2, "Midi ring", "Elegant and easy to combine.", 14.95, 100);
 INSERT INTO PRODUCTS VALUES(3, "Silver wave", "The spirit of the Sea and the beauty of the waves merge on this ring.", 29.95, 100);
-INSERT INTO PRODUCTS VALUES(4, "World necklace", "For the wanderers and those who love to travel.", 29.95, 100);
+INSERT INTO PRODUCTS VALUES(4, "World necklace", "For the wanderers and those who love to travel.", 29.95, 0);
 INSERT INTO PRODUCTS VALUES(5, "Sister necklace", "Two golden rings which once joined their forces to make the sum of all.", 29.95, 100);
 INSERT INTO PRODUCTS VALUES(6, "Pearl necklace", "This necklace gives a special touch as every pearl is unique.", 39.95, 100);
 INSERT INTO PRODUCTS VALUES(7, "Bungavilla earrings", "Fill your ears with airs of spring and flowers.", 39.95, 100);
