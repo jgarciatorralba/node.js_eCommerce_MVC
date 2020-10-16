@@ -6,6 +6,8 @@ import { ProductModel } from "../models/ProductModel.js";
 const Product = new ProductModel();
 import { ImageModel } from "../models/ImageModel.js";
 const Image = new ImageModel();
+import { UserModel } from "../models/UserModel.js";
+const User = new UserModel();
 
 // Import VIEWS path
 import {
@@ -41,7 +43,6 @@ export class PublicController {
         }
       )
     } catch(e) {
-      res.status(404).render(path.resolve(VIEWS, "404.ejs"), {title: "Error", layout: "./public/layouts/layout-user"});
       throw e;
     }
   }
@@ -114,26 +115,6 @@ export class PublicController {
     );
   }
 
-  async goToCheckout(req, res){
-    let step = req.params.step;
-    let checkoutView = "checkout-" + step + ".ejs";
-
-    let user = req.user;
-    let cart = [];
-    if (typeof(user) !== "undefined") {
-      cart = await Product.getUserCart(user.id);
-    }
-
-    res.render(
-      path.resolve(VIEWS, "public", "product", checkoutView), {
-        title: "Checkout",
-        user: user,
-        cart: cart,
-        csrfToken: req.csrfToken()
-      }
-    );
-  }
-
   async addToCart(req, res){
     try{
       const { customer_id, product_id } = req.body
@@ -187,5 +168,81 @@ export class PublicController {
       });
       throw e;
     }
+  }
+
+  async goToCheckout(req, res){
+    let step = req.params.step;
+    let checkoutView = "checkout-" + step + ".ejs";
+
+    let user = req.user;
+    let cart = [];
+    if (typeof(user) !== "undefined") {
+      cart = await Product.getUserCart(user.id);
+    }
+
+    res.render(
+      path.resolve(VIEWS, "public", "product", checkoutView), {
+        title: "Checkout",
+        user: user,
+        cart: cart,
+        csrfToken: req.csrfToken()
+      }
+    );
+  }
+
+  async validateShipping(req, res){
+    const {
+      address,
+      zipCode,
+      country,
+      phoneNumber
+    } = req.body
+
+    let validated = true;
+    /* Validation (we could place here whatever 
+      we wanted to validate for each field) */
+
+    if(!validated){
+      let error = new Error("Invalid input fields")
+      res.render(
+        path.resolve(VIEWS, "public", "product", "checkout-1.ejs"), {
+          title: "Checkout",
+          address: address,
+          zipCode: zipCode,
+          country: country,
+          phoneNumber: phoneNumber,
+          message: error,
+          csrfToken: req.csrfToken()
+        }
+      );
+    } else {
+      const promise = User.addShippingDetails(req.user, [address, zipCode, country, phoneNumber]);
+      promise
+        .then(result => {
+          req.flash('success_msg', result)
+          res.redirect('/checkout/2')
+        })
+        .catch(error => {
+          res.render(
+            path.resolve(VIEWS, "public", "product", "checkout-1.ejs"), {
+              title: "Checkout",
+              address: address,
+              zipCode: zipCode,
+              country: country,
+              phoneNumber: phoneNumber,
+              message: error,
+              csrfToken: req.csrfToken()
+            }
+          );
+        })
+    }
+  }
+
+  async validatePayment(req, res){
+    
+  }
+
+  async validateTerms(req, res){
+    
   }
 }
