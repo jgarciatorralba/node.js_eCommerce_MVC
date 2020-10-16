@@ -22,15 +22,15 @@ $('.quantity').on('change', function() {
     data: {
       customer_id: customerId,
       product_id: productId,
-      quantity: newQty
+      new_quantity: newQty
     }
   }).done(response => {
-    console.log(response.message);
-    if (response.message == "Not enough stock for the requested quantity") {
-      // $('#productCount').text(productCount + 1);
-      // $(this).text('Remove');
-      // $(this).removeClass('btn-outline-info');
-      // $(this).addClass('btn-outline-danger');
+    if (response.message == "Product updated in customer cart") {
+      console.log(response.message);
+    } else if (response.message == "Database error") {
+      $('.alert-danger span').text(response.message);
+      $('.alert-danger').fadeIn(800);
+      $('.alert-danger').removeClass('d-none');
     } else if (response.message == "Product removed from customer cart") {
       let productCount = parseInt($('#productCount').text());
       $('#productCount').text(productCount - 1);
