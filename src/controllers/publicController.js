@@ -210,6 +210,11 @@ export class PublicController {
       phoneNumber
     } = req.body
 
+    let cart = [];
+    if (typeof(req.user) !== "undefined") {
+      cart = await Product.getUserCart(req.user.id);
+    }
+
     let validated = true;
     /* Validation (we could place here whatever 
       we wanted to validate for each field) */
@@ -225,6 +230,7 @@ export class PublicController {
           phoneNumber: phoneNumber,
           message: error,
           user: req.user,
+          cart: cart,
           csrfToken: req.csrfToken()
         }
       );
@@ -244,6 +250,7 @@ export class PublicController {
               country: country,
               phoneNumber: phoneNumber,
               user: req.user,
+              cart: cart,
               message: error,
               csrfToken: req.csrfToken()
             }
@@ -257,6 +264,11 @@ export class PublicController {
       ccNumber,
       cvvNumber
     } = req.body
+
+    let cart = [];
+    if (typeof(req.user) !== "undefined") {
+      cart = await Product.getUserCart(req.user.id);
+    }
 
     // Form validation
     let validated = true;
@@ -288,6 +300,7 @@ export class PublicController {
           cvvNumber: cvvNumber,
           message: error,
           user: req.user,
+          cart: cart,
           csrfToken: req.csrfToken()
         }
       );
@@ -306,6 +319,7 @@ export class PublicController {
               cvvNumber: cvvNumber,
               message: error,
               user: req.user,
+              cart: cart,
               csrfToken: req.csrfToken()
             }
           );
