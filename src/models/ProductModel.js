@@ -194,6 +194,18 @@ export class ProductModel {
     })
   }
 
+  // Get all order items
+  getOrderItems(){
+    return new Promise((resolve, reject) => {
+      this.con.query("SELECT * FROM orders_products", (error, result) => {
+        if (error) {
+          reject(new Error("Database error"))
+        }
+        resolve(result)
+      })
+    })
+  }
+
   // Get last order of a user
   getLastOrderUser(customer_id){
     return new Promise((resolve, reject) => {
