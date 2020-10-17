@@ -179,11 +179,13 @@ export class PublicController {
     let products = [];
     let images = [];
     let lastOrders = [];
+    let ordersItems = [];
     if (typeof(user) !== "undefined") {
       cart = await Product.getUserCart(user.id);
       products = await Product.get();
       images = await Image.get();
-      lastOrders = await Product.getLastOrderUser(user.id)
+      lastOrders = await Product.getLastOrderUser(user.id);
+      ordersItems = await Product.getOrderItems();
     }
 
     res.render(
@@ -194,6 +196,7 @@ export class PublicController {
         products: products,
         images: images,
         lastOrders: lastOrders,
+        ordersItems: ordersItems,
         csrfToken: req.csrfToken()
       }
     );
