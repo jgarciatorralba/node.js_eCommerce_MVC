@@ -1,4 +1,4 @@
-$('#loadPage').on('click', () => {
+$('#loadPage').on('click', function() {
   let currentPage = parseInt($('#loadPage').attr('data-currentpage'));
   let totalPages = parseInt($('#loadPage').attr('data-totalpages'));
   let userId = $('#loadPage').attr('data-userid');
@@ -16,7 +16,10 @@ $('#loadPage').on('click', () => {
     })
 
     $('.btn-cart').each(function(index, element) {
-      $(element).on('click', toggleCart);
+      if ($(element).attr('data-listener') == undefined){
+        $(element).on('click', toggleCart);
+        $(element).attr('data-listener', 'true')
+      }
     })
 
     currentPage++;
