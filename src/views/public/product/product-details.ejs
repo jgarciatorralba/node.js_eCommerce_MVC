@@ -63,7 +63,7 @@
               class="btn btn-outline-info mt-3 btn-cart" 
             <% } %>
             data-productId="<%- product[0].id %>"
-            <% if(product.stock == 0 || typeof(user) == "undefined") { %>
+            <% if(product[0].stock == 0 || typeof(user) == "undefined") { %>
               disabled
             <% } %>
             <% if(typeof(user) == "undefined") { %>
